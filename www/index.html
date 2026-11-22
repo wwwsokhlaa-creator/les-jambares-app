@@ -1,0 +1,1698 @@
+```html
+<!-- ... existing code ... -->
+            <!-- Formulaire d'identification -->
+            <form id="auth-form" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-mono uppercase text-tactical-sand mb-1">Prénom *</label>
+                        <input type="text" id="reg-prenom" required placeholder="Ex: Moussa" class="w-full bg-tactical-black border border-tactical-border focus:border-tactical-gold rounded-lg px-3 py-2.5 text-sm text-white outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono uppercase text-tactical-sand mb-1">Nom *</label>
+                        <input type="text" id="reg-nom" required placeholder="Ex: NDIAYE" class="w-full bg-tactical-black border border-tactical-border focus:border-tactical-gold rounded-lg px-3 py-2.5 text-sm text-white uppercase outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-mono uppercase text-tactical-gold mb-1">Nom de Guerre (Indicatif) *</label>
+                        <input type="text" id="reg-callsign" required placeholder="Ex: LION-01 / DIARAF" class="w-full bg-tactical-black border border-tactical-border focus:border-tactical-gold rounded-lg px-3 py-2.5 text-sm text-tactical-gold font-mono uppercase outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono uppercase text-tactical-sand mb-1">Grade Initial *</label>
+                        <select id="reg-initial-rank" class="w-full bg-tactical-black border border-tactical-border focus:border-tactical-gold rounded-lg px-3 py-2.5 text-sm text-white outline-none">
+                            <option value="1">Soldat de 2e Classe (Niv. 1)</option>
+                            <option value="51">Soldat de 1re Classe (Niv. 51)</option>
+                            <option value="121">Caporal (Niv. 121)</option>
+                            <option value="201">Caporal-Chef (Niv. 201)</option>
+                            <option value="301">Sergent (Niv. 301)</option>
+                            <option value="401">Sergent-Chef (Niv. 401)</option>
+                            <option value="501">Adjudant (Niv. 501)</option>
+                            <option value="601">Adjudant-Chef (Niv. 601)</option>
+                            <option value="701">Sous-Lieutenant / Lieutenant (Niv. 701)</option>
+                            <option value="801">Capitaine / Commandant (Niv. 801)</option>
+                            <option value="901">Lieutenant-Colonel / Colonel (Niv. 901)</option>
+                            <option value="971">Officier Général (Niv. 971)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-mono uppercase text-tactical-sand mb-1">Unité / Corps *</label>
+                        <input type="text" id="reg-unit" required list="fas-units-list" placeholder="Ex: 34e Bataillon d'Infanterie" class="w-full bg-tactical-black border border-tactical-border focus:border-tactical-gold rounded-lg px-3 py-2.5 text-sm text-white outline-none">
+                        <datalist id="fas-units-list">
+                            <option value="1er Bataillon de Parachutistes (1er BP)">
+                            <option value="Bataillon de Commandos (BC)">
+                            <option value="Bataillon des Blindés (BB)">
+                            <option value="34e Bataillon d'Infanterie">
+                            <option value="12e Bataillon d'Infanterie (Saint-Louis)">
+                            <option value="Bataillon d'Artillerie (BA)">
+                            <option value="Bataillon du Génie (BG)">
+                            <option value="Bataillon des Transmissions (BT)">
+                            <option value="Armée de l'Air - Base Aérienne">
+                            <option value="Marine Nationale - Fusiliers Marins">
+                            <option value="Gendarmerie Nationale - LGI">
+                        </datalist>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono uppercase text-tactical-sand mb-1">Téléphone ou E-mail *</label>
+                        <input type="text" id="reg-contact" required placeholder="Ex: +221 77 000 00 00" class="w-full bg-tactical-black border border-tactical-border focus:border-tactical-gold rounded-lg px-3 py-2.5 text-sm text-white outline-none">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl bg-tactical-khaki hover:bg-tactical-khakiLight border border-tactical-gold/60 text-white font-bold uppercase tracking-wider text-sm transition shadow-lg flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5 text-tactical-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    Prendre Service / Accéder à la Base
+                </button>
+            </form>
+
+            <!-- Comptes enregistrés & Connexion rapide démonstration -->
+            <div class="mt-6 pt-5 border-t border-tactical-border">
+                <div id="saved-accounts-container" class="hidden mb-4">
+                    <p class="text-xs font-mono uppercase text-gray-400 mb-2">Dossiers Militaires Enregistrés sur ce Terminal :</p>
+                    <div id="saved-accounts-list" class="space-y-2 max-h-32 overflow-y-auto"></div>
+                </div>
+
+                <button type="button" id="demo-login-btn" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-tactical-khaki via-tactical-khakiLight to-tactical-khaki hover:brightness-110 border border-tactical-gold text-tactical-gold font-bold text-xs font-mono uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-lg">
+                    <span>★</span> Accès Démonstration Officielle (Présentation Ministre)
+                </button>
+            </div>
+        </div>
+    </div>
+<!-- ... existing code ... -->
+            <!-- NAVIGATION PRINCIPALE -->
+            <nav class="max-w-7xl mx-auto mt-2.5 pt-2 border-t border-tactical-border/60 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+                <button data-tab="dashboard" onclick="switchTab('dashboard')" class="nav-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap flex items-center gap-2 transition">
+                    <span>🎖️</span> État-Major & Profil
+                </button>
+                <button data-tab="tta150" onclick="switchTab('tta150')" class="nav-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap flex items-center gap-2 transition">
+                    <span>📘</span> TTA 150 Intégral
+                </button>
+                <button data-tab="courses" onclick="switchTab('courses')" class="nav-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap flex items-center gap-2 transition">
+                    <span>📚</span> 14 Modules & Armement
+                </button>
+                <button data-tab="quiz" onclick="switchTab('quiz')" class="nav-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap flex items-center gap-2 transition">
+                    <span>🎯</span> Tests & 1000 Niveaux
+                </button>
+                <button data-tab="maps" onclick="switchTab('maps')" class="nav-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap flex items-center gap-2 transition">
+                    <span>🧭</span> Cartes Offline & Topo
+                </button>
+                <button data-tab="admin" onclick="openAdminModal()" class="nav-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap flex items-center gap-2 transition text-tactical-gold">
+                    <span>🔐</span> Gestion & Édition
+                </button>
+            </nav>
+        </header>
+
+        <!-- CONTENU DYNAMIQUE -->
+        <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6">
+
+            <!-- ================= VUE 1 : TABLEAU DE BORD & PROFIL ================= -->
+            <section id="view-dashboard" class="space-y-6">
+<!-- ... existing code ... -->
+                <!-- Statistiques Clés -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                    <div class="bg-tactical-panel border border-tactical-border rounded-xl p-4">
+                        <div class="text-xs font-mono text-gray-400 uppercase">Modules Réglementaires</div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-white mt-1" id="stat-modules-count">14</div>
+                        <div class="text-xs text-tactical-sand mt-1" id="stat-lessons-count">0 fiches de cours</div>
+                    </div>
+                    <div class="bg-tactical-panel border border-tactical-border rounded-xl p-4">
+                        <div class="text-xs font-mono text-gray-400 uppercase">Banque de Questions</div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-tactical-gold mt-1" id="stat-questions-count">0</div>
+                        <div class="text-xs text-gray-400 mt-1">+ Générateur 1000 niveaux</div>
+                    </div>
+                    <div class="bg-tactical-panel border border-tactical-border rounded-xl p-4">
+                        <div class="text-xs font-mono text-gray-400 uppercase">Taux de Réussite Tir/Quiz</div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-1" id="stat-accuracy">0%</div>
+                        <div class="text-xs text-gray-400 mt-1" id="stat-tests-taken">0 évaluations passées</div>
+                    </div>
+                    <div class="bg-tactical-panel border border-tactical-border rounded-xl p-4">
+                        <div class="text-xs font-mono text-gray-400 uppercase">Points Topographiques</div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-tactical-sand mt-1" id="stat-waypoints-count">0</div>
+                        <div class="text-xs text-gray-400 mt-1">Repères enregistrés hors-ligne</div>
+                    </div>
+                </div>
+
+                <!-- Accès Rapides Opérationnels -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div onclick="switchTab('tta150')" class="cursor-pointer group bg-tactical-panel hover:bg-tactical-card border border-tactical-border hover:border-tactical-gold/60 rounded-xl p-5 transition">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl">📘</span>
+                            <span class="text-xs font-mono text-tactical-gold group-hover:translate-x-1 transition">OUVRIR TTA 150 →</span>
+                        </div>
+                        <h3 class="font-bold text-white text-base">TTA 150 Intégral (Titres I à XII)</h3>
+                        <p class="text-xs text-gray-400 mt-1.5 leading-relaxed">Accès direct aux 12 Titres réglementaires du Texte Toutes Armes 150 avec recherche instantanée par mot-clé ou référence.</p>
+                    </div>
+
+                    <div onclick="switchTab('courses')" class="cursor-pointer group bg-tactical-panel hover:bg-tactical-card border border-tactical-border hover:border-tactical-gold/60 rounded-xl p-5 transition">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl">🔫</span>
+                            <span class="text-xs font-mono text-tactical-gold group-hover:translate-x-1 transition">14 MODULES →</span>
+                        </div>
+                        <h3 class="font-bold text-white text-base">Doctrine FAS & Fiches Armement</h3>
+                        <p class="text-xs text-gray-400 mt-1.5 leading-relaxed">FAS, RDG, RPG-7, Browning .50, M60, M4/M16, 14.7mm, 12.7 chinoise, FAL, FLG, ISTC, Combat, SC1, Mines, NRBC, Drones.</p>
+                    </div>
+
+                    <div onclick="switchTab('maps')" class="cursor-pointer group bg-tactical-panel hover:bg-tactical-card border border-tactical-border hover:border-tactical-gold/60 rounded-xl p-5 transition">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl">🗺️</span>
+                            <span class="text-xs font-mono text-tactical-gold group-hover:translate-x-1 transition">CARTOGRAPHIE →</span>
+                        </div>
+                        <h3 class="font-bold text-white text-base">Carte Topographique Offline & GPS</h3>
+                        <p class="text-xs text-gray-400 mt-1.5 leading-relaxed">Secteurs Sénégal (Dakar, Saint-Louis, Kédougou, Ziguinchor), grille UTM/MGRS, azimut en millièmes (6400) et Naismith.</p>
+                    </div>
+                </div>
+
+                <!-- Tableau d'Honneur, Historique Récent & Échelle des Grades -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="bg-tactical-panel border border-tactical-border rounded-xl p-5">
+                        <h3 class="text-sm font-mono uppercase text-tactical-gold font-bold mb-3 flex items-center gap-2">
+                            <span>🏆</span> Tableau d'Honneur des Militaires
+                        </h3>
+                        <div id="dash-leaderboard-list" class="space-y-2 max-h-60 overflow-y-auto"></div>
+                    </div>
+
+                    <div class="bg-tactical-panel border border-tactical-border rounded-xl p-5">
+                        <h3 class="text-sm font-mono uppercase text-tactical-gold font-bold mb-3 flex items-center gap-2">
+                            <span>📋</span> Journal des Évaluations Récentes
+                        </h3>
+                        <div id="dash-history-list" class="space-y-2 max-h-60 overflow-y-auto">
+                            <p class="text-xs text-gray-500 italic">Aucune évaluation enregistrée pour le moment.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-tactical-panel border border-tactical-border rounded-xl p-5">
+                        <h3 class="text-sm font-mono uppercase text-tactical-gold font-bold mb-3 flex items-center gap-2">
+                            <span>⭐</span> Paliers de Grades (1 à 1000)
+                        </h3>
+                        <div class="grid grid-cols-1 gap-1.5 text-[11px] font-mono max-h-60 overflow-y-auto pr-1">
+                            <div class="p-1.5 rounded bg-tactical-black border border-tactical-border flex justify-between"><span class="text-gray-400">Niv. 1 - 50</span><span class="text-white">Soldat de 2e Classe</span></div>
+                            <div class="p-1.5 rounded bg-tactical-black border border-tactical-border flex justify-between"><span class="text-gray-400">Niv. 51 - 120</span><span class="text-white">Soldat de 1re Classe</span></div>
+                            <div class="p-1.5 rounded bg-tactical-black border border-tactical-border flex justify-between"><span class="text-gray-400">Niv. 121 - 200</span><span class="text-tactical-sand">Caporal</span></div>
+                            <div class="p-1.5 rounded bg-tactical-black border border-tactical-border flex justify-between"><span class="text-gray-400">Niv. 201 - 300</span><span class="text-tactical-sand">Caporal-Chef</span></div>
+                            <div class="p-1.5 rounded bg-tactical-black border border-tactical-border flex justify-between"><span class="text-gray-400">Niv. 301 - 400</span><span class="text-tactical-sand">Sergent</span></div>
+                            <div class="p-1.5 rounded bg-tactical-black border border-tactical-border flex justify-between"><span class="text-gray-400">Niv. 401 - 500</span><span class="text-tactical-sand">Sergent-Chef</span></div>
+                            <div class="p-1.5 rounded bg-tactical-black border border-tactical-border flex justify-between"><span class="text-gray-400">Niv. 501 - 600</span><span class="text-tactical-gold">Adjudant</span></div>
+                            <div class="p-1.5 rounded bg-tactical-black border border-tactical-border flex justify-between"><span class="text-gray-400">Niv. 601 - 700</span><span class="text-tactical-gold">Adjudant-Chef</span></div>
+                            <div class="p-1.5 rounded bg-tactical-black border border-tactical-border flex justify-between"><span class="text-gray-400">Niv. 701 - 800</span><span class="text-tactical-gold">Sous-Lieutenant / Lieutenant</span></div>
+                            <div class="p-1.5 rounded bg-tactical-black border border-tactical-border flex justify-between"><span class="text-gray-400">Niv. 801 - 900</span><span class="text-tactical-gold">Capitaine / Commandant</span></div>
+                            <div class="p-1.5 rounded bg-tactical-black border border-tactical-border flex justify-between"><span class="text-gray-400">Niv. 901 - 970</span><span class="text-tactical-gold">Lieutenant-Colonel / Colonel</span></div>
+                            <div class="p-1.5 rounded bg-tactical-black border border-tactical-gold/40 flex justify-between"><span class="text-tactical-gold">Niv. 971 - 1000</span><span class="text-tactical-gold font-bold">Officier Général</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VUE 1B : ONGLET DÉDIÉ TTA 150 INTÉGRAL ================= -->
+            <section id="view-tta150" class="hidden space-y-5">
+                <div class="bg-tactical-panel border border-tactical-gold/50 rounded-2xl p-5 sm:p-6 camo-bg">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <span class="px-2.5 py-0.5 rounded bg-tactical-gold text-tactical-black font-mono font-bold text-[10px] uppercase">Référentiel Réglementaire Interarmées</span>
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">TTA 150 INTÉGRAL — Titres I à XII</h2>
+                            <p class="text-xs sm:text-sm text-tactical-sand mt-0.5">Manuel de formation générale du combattant. Recherchez instantanément par mot-clé, acronyme ou numéro de Titre.</p>
+                        </div>
+                        <button onclick="launchModuleQuiz('mod-tta150')" class="px-4 py-2.5 rounded-xl bg-tactical-khaki hover:bg-tactical-khakiLight border border-tactical-gold text-xs font-bold text-white whitespace-nowrap">
+                            🎯 Évaluation sur le TTA 150
+                        </button>
+                    </div>
+
+                    <div class="mt-4 relative">
+                        <input type="text" id="tta150-search" oninput="renderTTA150View()" placeholder="Rechercher dans tous les Titres du TTA 150 (ex: Titre IV, ISTC, FFOMECBLOT, PADE, MARCHE-RYAN, NRBC, DIH, Garde)..." class="w-full bg-tactical-black border border-tactical-border focus:border-tactical-gold rounded-xl pl-10 pr-4 py-3 text-sm text-white outline-none">
+                        <svg class="w-4 h-4 text-tactical-gold absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                </div>
+
+                <!-- Sommaire rapide des Titres I à XII -->
+                <div id="tta150-toc" class="flex flex-wrap gap-2"></div>
+
+                <!-- Contenu complet des Titres du TTA 150 -->
+                <div id="tta150-content-list" class="space-y-4"></div>
+            </section>
+
+            <!-- ================= VUE 2 : COURS & MODULES (14 MODULES) ================= -->
+            <section id="view-courses" class="hidden space-y-5">
+                <!-- Barre de recherche & Filtre -->
+                <div class="bg-tactical-panel border border-tactical-border rounded-xl p-4 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+                    <div class="relative flex-1">
+                        <input type="text" id="course-search" oninput="renderCourses()" placeholder="Rechercher une arme (RPG-7, .50, M60, M4, 14.7mm, 12.7 chinoise, FAL, FLG...), un règlement (RDG, FAS, SC1)..." class="w-full bg-tactical-black border border-tactical-border focus:border-tactical-gold rounded-lg pl-9 pr-4 py-2.5 text-sm text-white outline-none">
+                        <svg class="w-4 h-4 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <select id="course-module-filter" onchange="renderCourses()" class="bg-tactical-black border border-tactical-border rounded-lg px-3 py-2.5 text-sm text-tactical-sand outline-none w-full sm:w-auto">
+                            <option value="ALL">Tous les 14 Modules</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Grille des Modules ou Liste des Fiches -->
+                <div id="modules-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+                <!-- Vue détaillée d'un Module sélectionné -->
+                <div id="module-detail-view" class="hidden space-y-4">
+                    <button onclick="closeModuleDetail()" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-tactical-panel hover:bg-tactical-card border border-tactical-border text-xs font-mono text-tactical-sand transition">
+                        ← Retour aux 14 Modules
+                    </button>
+                    <div id="module-detail-header" class="bg-tactical-panel border border-tactical-border rounded-xl p-5"></div>
+                    <div id="module-lessons-container" class="space-y-4"></div>
+                </div>
+            </section>
+<!-- ... existing code ... -->
+                    <!-- Raccourcis de Paliers (1 à 1000) -->
+                    <div>
+                        <p class="text-xs font-mono text-gray-400 uppercase mb-2">Accès rapide aux paliers de grades (1 à 1000) :</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="document.getElementById('quiz-target-level').value=1" class="px-3 py-1.5 rounded-lg bg-tactical-black hover:bg-tactical-khaki border border-tactical-border text-xs font-mono text-gray-300">Niv. 1 (Soldat 2e Cl.)</button>
+                            <button onclick="document.getElementById('quiz-target-level').value=121" class="px-3 py-1.5 rounded-lg bg-tactical-black hover:bg-tactical-khaki border border-tactical-border text-xs font-mono text-gray-300">Niv. 121 (Caporal)</button>
+                            <button onclick="document.getElementById('quiz-target-level').value=301" class="px-3 py-1.5 rounded-lg bg-tactical-black hover:bg-tactical-khaki border border-tactical-border text-xs font-mono text-tactical-sand">Niv. 301 (Sergent)</button>
+                            <button onclick="document.getElementById('quiz-target-level').value=501" class="px-3 py-1.5 rounded-lg bg-tactical-black hover:bg-tactical-khaki border border-tactical-border text-xs font-mono text-tactical-sand">Niv. 501 (Adjudant)</button>
+                            <button onclick="document.getElementById('quiz-target-level').value=701" class="px-3 py-1.5 rounded-lg bg-tactical-black hover:bg-tactical-khaki border border-tactical-border text-xs font-mono text-tactical-gold">Niv. 701 (Lieutenant)</button>
+                            <button onclick="document.getElementById('quiz-target-level').value=801" class="px-3 py-1.5 rounded-lg bg-tactical-black hover:bg-tactical-khaki border border-tactical-border text-xs font-mono text-tactical-gold">Niv. 801 (Capitaine/Cdt)</button>
+                            <button onclick="document.getElementById('quiz-target-level').value=971" class="px-3 py-1.5 rounded-lg bg-tactical-black hover:bg-tactical-khaki border border-tactical-gold/50 text-xs font-mono text-tactical-gold font-bold">Niv. 971-1000 (Officier Général)</button>
+                        </div>
+                    </div>
+<!-- ... existing code ... -->
+                    <!-- Colonne Principale : Carte Topographique Interactive Canvas -->
+                    <div class="lg:col-span-2 bg-tactical-panel border border-tactical-border rounded-2xl p-4 flex flex-col">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <div>
+                                <h2 class="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                                    <span>🗺️</span> Carte Topographique Tactique (Offline UTM/MGRS)
+                                </h2>
+                                <p class="text-xs text-gray-400">Touchez/cliquez sur la carte pour placer un repère ou mesurer gisement & distance.</p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-1.5">
+                                <select id="map-sector-select" onchange="changeMapSector(this.value)" class="bg-tactical-black border border-tactical-border rounded-lg px-2.5 py-1.5 text-xs font-mono text-tactical-sand outline-none">
+                                    <option value="DAKAR">Secteur Dakar / Thiès</option>
+                                    <option value="SAINTLOUIS">Secteur Saint-Louis (Zone N°2)</option>
+                                    <option value="KEDOUGOU">Secteur Kédougou / Tamba (Zone N°4)</option>
+                                    <option value="ZIGUINCHOR">Secteur Ziguinchor (Zone N°5)</option>
+                                </select>
+                                <button onclick="locateUserGPS()" class="px-3 py-1.5 rounded-lg bg-tactical-khaki hover:bg-tactical-khakiLight border border-tactical-gold/60 text-xs font-mono text-white flex items-center gap-1.5">
+                                    <span>📡</span> GPS Réel
+                                </button>
+                                <button onclick="resetMapView()" class="px-3 py-1.5 rounded-lg bg-tactical-card hover:bg-tactical-border text-xs font-mono text-tactical-sand">
+                                    Centrer
+                                </button>
+                            </div>
+                        </div>
+<!-- ... existing code ... -->
+                        <!-- Liste des Points de Repère (Waypoints) -->
+                        <div class="bg-tactical-panel border border-tactical-border rounded-2xl p-4">
+                            <h3 class="text-xs font-mono uppercase text-tactical-gold font-bold mb-2">📍 Repères Enregistrés (<span id="wp-count">0</span>)</h3>
+                            <div id="waypoints-list" class="space-y-2 max-h-40 overflow-y-auto text-xs"></div>
+                            <div class="mt-3 pt-2.5 border-t border-tactical-border space-y-2">
+                                <div class="text-[10px] font-mono uppercase text-tactical-sand">Mesure Entre Deux Repères :</div>
+                                <div class="grid grid-cols-2 gap-1.5">
+                                    <select id="wp-calc-a" onchange="calcBetweenWaypoints()" class="bg-tactical-black border border-tactical-border rounded px-2 py-1 text-[11px] font-mono text-white"></select>
+                                    <select id="wp-calc-b" onchange="calcBetweenWaypoints()" class="bg-tactical-black border border-tactical-border rounded px-2 py-1 text-[11px] font-mono text-white"></select>
+                                </div>
+                                <div id="wp-pair-result" class="text-[11px] font-mono text-emerald-400">Sélectionnez 2 repères pour calculer distance & azimut.</div>
+                            </div>
+                        </div>
+
+                        <!-- Calculateur Topographique Militaire -->
+                        <div class="bg-tactical-panel border border-tactical-border rounded-2xl p-4 space-y-3">
+                            <h3 class="text-xs font-mono uppercase text-tactical-gold font-bold">📐 Calculateur Topographique & Naismith</h3>
+                            
+                            <!-- Conversion Degrés <-> Millièmes (OTAN 6400) -->
+                            <div class="bg-tactical-black border border-tactical-border rounded-xl p-3 space-y-2">
+                                <div class="text-[11px] font-mono text-tactical-sand">Conversion Degrés ↔ Millièmes (6400 ₥)</div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="text-[10px] text-gray-400 font-mono">Degrés (0-360°)</label>
+                                        <input type="number" id="calc-deg" value="90" oninput="convertDegToMil()" class="w-full bg-tactical-panel border border-tactical-border rounded px-2 py-1.5 text-xs font-mono text-white">
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] text-gray-400 font-mono">Millièmes (0-6400₥)</label>
+                                        <input type="number" id="calc-mil" value="1600" oninput="convertMilToDeg()" class="w-full bg-tactical-panel border border-tactical-border rounded px-2 py-1.5 text-xs font-mono text-tactical-gold">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Calcul Distance Carte -> Terrain, Pente & Règle de Naismith -->
+                            <div class="bg-tactical-black border border-tactical-border rounded-xl p-3 space-y-2">
+                                <div class="text-[11px] font-mono text-tactical-sand">Distance Terrain, Pente (%) & Temps Naismith</div>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div>
+                                        <label class="text-[10px] text-gray-400 font-mono">Carte (cm)</label>
+                                        <input type="number" id="calc-cm" value="4" oninput="calcMapDistance()" class="w-full bg-tactical-panel border border-tactical-border rounded px-2 py-1.5 text-xs font-mono text-white">
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] text-gray-400 font-mono">Échelle</label>
+                                        <select id="calc-scale" onchange="calcMapDistance()" class="w-full bg-tactical-panel border border-tactical-border rounded px-2 py-1.5 text-xs font-mono text-white">
+                                            <option value="25000">1:25 000</option>
+                                            <option value="50000" selected>1:50 000</option>
+                                            <option value="100000">1:100 000</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] text-gray-400 font-mono">Dénivelé (m)</label>
+                                        <input type="number" id="calc-elev" value="120" oninput="calcMapDistance()" class="w-full bg-tactical-panel border border-tactical-border rounded px-2 py-1.5 text-xs font-mono text-tactical-gold">
+                                    </div>
+                                </div>
+                                <div id="calc-dist-result" class="text-[11px] font-mono text-emerald-400 pt-1 leading-relaxed">
+                                    Distance : 2 000 m (2.00 km) • Pente : 6.0%<br>Marche Naismith (4 km/h + 300m/h) : ~54 min
+                                </div>
+                            </div>
+                        </div>
+<!-- ... existing code ... -->
+                <!-- Onglets Admin -->
+                <div class="flex flex-wrap gap-2 border-b border-tactical-border pb-3">
+                    <button onclick="switchAdminSubtab('add-lesson')" id="adm-btn-add-lesson" class="adm-sub-btn px-4 py-2 rounded-lg text-xs font-bold bg-tactical-gold text-tactical-black">+ Ajouter Cours / TTA 150</button>
+                    <button onclick="switchAdminSubtab('new-module')" id="adm-btn-new-module" class="adm-sub-btn px-4 py-2 rounded-lg text-xs font-bold bg-tactical-card text-gray-300">+ Nouveau Module</button>
+                    <button onclick="switchAdminSubtab('manage-lessons')" id="adm-btn-manage-lessons" class="adm-sub-btn px-4 py-2 rounded-lg text-xs font-bold bg-tactical-card text-gray-300">Éditer / Supprimer Fiches</button>
+                    <button onclick="switchAdminSubtab('add-question')" id="adm-btn-add-question" class="adm-sub-btn px-4 py-2 rounded-lg text-xs font-bold bg-tactical-card text-gray-300">+ Ajouter / Importer QCM</button>
+                    <button onclick="switchAdminSubtab('manage-questions')" id="adm-btn-manage-questions" class="adm-sub-btn px-4 py-2 rounded-lg text-xs font-bold bg-tactical-card text-gray-300">Gérer Questions</button>
+                    <button onclick="switchAdminSubtab('security')" id="adm-btn-security" class="adm-sub-btn px-4 py-2 rounded-lg text-xs font-bold bg-tactical-card text-gray-300">🔐 Code PIN & Système</button>
+                </div>
+
+                <!-- Sous-onglet 1 : Ajouter un Cours ou Importer Texte TTA 150 -->
+                <div id="adm-panel-add-lesson" class="bg-tactical-panel border border-tactical-border rounded-2xl p-5 space-y-4">
+                    <h3 class="text-base font-bold text-tactical-gold">Ajouter une Fiche de Cours ou Importer un Chapitre du TTA 150</h3>
+                    <form id="admin-lesson-form" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-mono text-tactical-sand mb-1">Module de destination *</label>
+                                <select id="adm-lesson-module" required class="w-full bg-tactical-black border border-tactical-border rounded-lg px-3 py-2.5 text-sm text-white outline-none"></select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-tactical-sand mb-1">Référence Réglementaire *</label>
+                                <input type="text" id="adm-lesson-ref" required placeholder="Ex: TTA 150 - Titre IV / RDG Art. 12" class="w-full bg-tactical-black border border-tactical-border rounded-lg px-3 py-2.5 text-sm text-white outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-tactical-sand mb-1">Titre de la Fiche / Chapitre *</label>
+                            <input type="text" id="adm-lesson-title" required placeholder="Ex: Titre V - Le combat du groupe d'infanterie" class="w-full bg-tactical-black border border-tactical-border rounded-lg px-3 py-2.5 text-sm text-white outline-none">
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap justify-between items-center gap-2 mb-1">
+                                <label class="text-xs font-mono text-tactical-sand">Contenu détaillé (Copiez-collez vos textes TTA 150 ou chargez un fichier .txt/.md) *</label>
+                                <div class="flex items-center gap-3">
+                                    <label class="cursor-pointer text-xs font-mono text-tactical-gold underline">
+                                        📂 Importer fichier .TXT / .MD
+                                        <input type="file" accept=".txt,.md" onchange="loadTxtIntoLesson(event)" class="hidden">
+                                    </label>
+                                </div>
+                            </div>
+                            <textarea id="adm-lesson-content" rows="8" required placeholder="Collez ici l'intégralité du texte réglementaire, les caractéristiques techniques ou les consignes tactiques..." class="w-full bg-tactical-black border border-tactical-border rounded-lg p-3 text-sm text-gray-200 outline-none leading-relaxed"></textarea>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <button type="submit" class="px-6 py-3 rounded-xl bg-tactical-khaki hover:bg-tactical-khakiLight border border-tactical-gold text-white font-bold text-sm">
+                                Enregistrer la Fiche dans la Base
+                            </button>
+                            <button type="button" onclick="autoGenerateQuizFromLessonText()" class="px-4 py-3 rounded-xl bg-tactical-card hover:bg-tactical-border border border-tactical-sand/40 text-tactical-sand font-bold text-xs">
+                                ⚡ Générer automatiquement des QCM depuis ce texte
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Sous-onglet 1B : Créer un Nouveau Module -->
+                <div id="adm-panel-new-module" class="hidden bg-tactical-panel border border-tactical-border rounded-2xl p-5 space-y-4">
+                    <h3 class="text-base font-bold text-tactical-gold">Créer un Nouveau Module Réglementaire</h3>
+                    <form id="admin-new-module-form" class="space-y-4 max-w-2xl">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-mono text-tactical-sand mb-1">Code Module *</label>
+                                <input type="text" id="adm-mod-code" required placeholder="Ex: MOD-15" class="w-full bg-tactical-black border border-tactical-border rounded-lg px-3 py-2.5 text-sm font-mono text-tactical-gold uppercase">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-tactical-sand mb-1">Icône Tactique</label>
+                                <input type="text" id="adm-mod-icon" value="🎖️" maxlength="4" class="w-full bg-tactical-black border border-tactical-border rounded-lg px-3 py-2.5 text-sm text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-tactical-sand mb-1">Intitulé du Module *</label>
+                                <input type="text" id="adm-mod-title" required placeholder="Ex: Combat en Zone Désertique" class="w-full bg-tactical-black border border-tactical-border rounded-lg px-3 py-2.5 text-sm text-white">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-tactical-sand mb-1">Description / Périmètre Doctrinal *</label>
+                            <input type="text" id="adm-mod-subtitle" required placeholder="Ex: Navigation, survie, camouflage et combat en milieu sahélien." class="w-full bg-tactical-black border border-tactical-border rounded-lg px-3 py-2.5 text-sm text-white">
+                        </div>
+                        <button type="submit" class="px-6 py-3 rounded-xl bg-tactical-khaki hover:bg-tactical-khakiLight border border-tactical-gold text-white font-bold text-sm">
+                            + Créer le Module
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Sous-onglet 2 : Éditer / Supprimer Fiches -->
+                <div id="adm-panel-manage-lessons" class="hidden bg-tactical-panel border border-tactical-border rounded-2xl p-5 space-y-4">
+                    <div class="flex flex-wrap justify-between items-center gap-2">
+                        <h3 class="text-base font-bold text-tactical-gold">Toutes les Fiches de Cours Enregistrées</h3>
+                        <select id="adm-filter-lessons-mod" onchange="renderAdminLessonsList()" class="bg-tactical-black border border-tactical-border rounded-lg px-3 py-1.5 text-xs text-white">
+                            <option value="ALL">Tous les Modules</option>
+                        </select>
+                    </div>
+                    <div id="adm-lessons-list" class="space-y-2 max-h-96 overflow-y-auto"></div>
+
+                    <!-- Éditeur de fiche sélectionnée -->
+                    <div id="adm-edit-lesson-box" class="hidden pt-4 border-t border-tactical-gold/40 space-y-3">
+                        <h4 class="text-sm font-bold text-tactical-gold">Modifier la Fiche Sélectionnée</h4>
+                        <input type="hidden" id="edit-lesson-mod-id">
+                        <input type="hidden" id="edit-lesson-id">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <input type="text" id="edit-lesson-ref" class="bg-tactical-black border border-tactical-border rounded-lg px-3 py-2 text-xs text-white" placeholder="Référence">
+                            <input type="text" id="edit-lesson-title" class="bg-tactical-black border border-tactical-border rounded-lg px-3 py-2 text-xs text-white" placeholder="Titre">
+                        </div>
+                        <textarea id="edit-lesson-content" rows="6" class="w-full bg-tactical-black border border-tactical-border rounded-lg p-3 text-xs text-gray-200 leading-relaxed"></textarea>
+                        <div class="flex gap-2">
+                            <button type="button" onclick="saveEditedLesson()" class="px-4 py-2 rounded-lg bg-tactical-khaki border border-tactical-gold text-xs font-bold text-white">Enregistrer Modifications</button>
+                            <button type="button" onclick="document.getElementById('adm-edit-lesson-box').classList.add('hidden')" class="px-4 py-2 rounded-lg bg-tactical-card text-xs text-gray-300">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+<!-- ... existing code ... -->
+    <!-- SCRIPT PRINCIPAL DE L'APPLICATION -->
+    <script>
+        /* ============================================================================
+           1. BASE DE DONNÉES DOCTRINALE COMPLÈTE (FAS, RDG, TTA 150, ARMEMENT, FM US)
+           ============================================================================ */
+        const INITIAL_MODULES = [
+            {
+                id: 'mod-fas',
+                code: 'MOD-01',
+                icon: '🇸🇳',
+                title: 'Forces Armées Sénégalaises (FAS)',
+                subtitle: 'Organisation des FAS, Devise, Titres de Commandement, Zones Militaires n°1 à n°7.',
+                lessons: [
+                    {
+                        id: 'fas-1',
+                        ref: 'Doctrine FAS / Loi Portant Statut Général des Militaires',
+                        title: 'Identité, Devise et Haut Commandement des Forces Armées Sénégalaises',
+                        content: `DEVISE DES ARMÉES SÉNÉGALAISES : « On nous tue, on ne nous déshonore pas. »
+
+1. MISSIONS FONDAMENTALES DES FAS :
+- Défense de l'intégrité du territoire national et de la souveraineté de la République du Sénégal.
+- Protection des populations, des institutions et des points sensibles vitaux.
+- Participation aux opérations de maintien de la paix internationale (ONU, CEDEAO, Union Africaine) et assistance aux populations (Plan ORSEC, Génie militaire, Santé des Armées).
+
+2. STRUCTURE DU HAUT COMMANDEMENT :
+- Chef Suprême des Armées : Le Président de la République.
+- Ministre des Forces Armées (MFA) : Responsable de la mise en œuvre de la politique de défense, de l'administration et de l'équipement des Armées.
+- Chef d'État-Major Général des Armées (CEMGA) : Conseiller militaire du gouvernement, il exerce le commandement opérationnel de l'ensemble des forces armées.
+- Haut-Commandant de la Gendarmerie Nationale et Directeur de la Justice Militaire.
+- Chefs d'État-Major d'Armées : Chef d'État-Major de l'Armée de Terre (CEMAT), Chef d'État-Major de l'Armée de l'Air (CEMAIR), Chef d'État-Major de la Marine Nationale (CEMMARINE).
+
+3. ORGANISATION TERRITORIALE — LES 7 ZONES MILITAIRES (COMZONE) :
+- Zone Militaire N°1 : Dakar (Cap-Vert, état-major, unités d'élite et soutien).
+- Zone Militaire N°2 : Saint-Louis (Région Nord, fleuve Sénégal).
+- Zone Militaire N°3 : Kaolack (Centre, bassin arachidier).
+- Zone Militaire N°4 : Tambacounda (Sénégal Oriental, Kédougou).
+- Zone Militaire N°5 : Ziguinchor (Basse-Casamance).
+- Zone Militaire N°6 : Kolda (Haute-Casamance, Sédhiou).
+- Zone Militaire N°7 : Thiès (Écoles militaires : ENOA, ENSOA, EAI, BAA, Centre d'Entraînement Tactique).`
+                    },
+                    {
+                        id: 'fas-titres',
+                        ref: 'Cérémonial Militaire & RDG Sénégal',
+                        title: 'Titres de Commandement, Appellations et Honneurs Militaires',
+                        content: `1. APPELLATIONS RÉGLEMENTAIRES :
+- À un Officier Général (Général de Brigade, de Division, de Corps d'Armée, d'Armée) : « Mon Général » (ou « Général » pour le personnel féminin).
+- À un Officier Supérieur :
+  * Colonel et Lieutenant-Colonel : « Mon Colonel » (on ne dit jamais "Mon Lieutenant-Colonel").
+  * Commandant (Chef de Bataillon / Chef d'Escadrons) : « Mon Commandant ».
+- À un Officier Subalterne :
+  * Capitaine : « Mon Capitaine ».
+  * Lieutenant et Sous-Lieutenant : « Mon Lieutenant ».
+- À un Sous-Officier Supérieur :
+  * Major : « Major ».
+  * Adjudant-Chef : « Mon Adjudant-Chef ».
+  * Adjudant : « Mon Adjudant ».
+- À un Sous-Officier Subalterne :
+  * Sergent-Chef / Maréchal des Logis-Chef : « Sergent-Chef » / « Maréchal des Logis-Chef » (sans "Mon").
+  * Sergent / Maréchal des Logis : « Sergent » / « Maréchal des Logis ».
+- À un Militaire du Rang :
+  * Caporal-Chef / Brigadier-Chef, Caporal / Brigadier, Soldat : Par son grade ou son nom.
+
+2. HONNEURS AUX DRAPEAUX ET ÉTENDARDS :
+Tout militaire isolé qui passe devant un Drapeau ou Étendard des Armées s'arrête, fait face et salue réglementairement.`
+                    }
+                ]
+            },
+            {
+                id: 'mod-rdg',
+                code: 'MOD-02',
+                icon: '⚖️',
+                title: 'Règlement de Discipline Générale (RDG)',
+                subtitle: 'Devoirs du militaire, hiérarchie, obéissance, récompenses, sanctions, service de garde.',
+                lessons: [
+                    {
+                        id: 'rdg-1',
+                        ref: 'Règlement de Discipline Générale (RDG) - Titres I à III',
+                        title: 'Principes de la Discipline, Devoirs du Chef et du Subordonné',
+                        content: `1. FONDEMENT DE LA DISCIPLINE :
+« La discipline fait la force principale des armées. » Elle repose sur l'obéissance entière et immédiate aux ordres des chefs, le respect des règlements militaires et des lois de la guerre.
+
+2. DEVOIRS DU CHEF :
+- Donner l'exemple en toutes circonstances.
+- Donner des ordres clairs, précis et exécutables.
+- Assumer la pleine responsabilité des ordres donnés et de leur exécution.
+- Veiller au moral, à la sécurité, à la santé et aux droits de ses subordonnés.
+
+3. DEVOIRS DU SUBORDONNÉ :
+- Exécuter loyalement, ponctuellement et sans hésitation les ordres reçus.
+- Refuser d'exécuter un ordre prescrivant d'accomplir un acte manifestement illégal ou contraire aux conventions internationales sur le droit des conflits armés (DICA).
+- Rendre compte systématiquement au chef dès que l'ordre est exécuté ou en cas d'impossibilité majeure.
+
+4. RÉCOMPENSES ET SANCTIONS :
+- Récompenses : Félicitations verbales/écrites, Témoignage de satisfaction, Citation (Ordre du Régiment, de la Brigade, de la Division, de l'Armée), Décorations (Ordre National du Lion, Ordre du Mérite, Croix de la Valeur Militaire).
+- Punitions disciplinaires : Avertissement, Consigne, Réprimande, Blâme, Arrêts simples, Arrêts de rigueur, Radiation des cadres.`
+                    },
+                    {
+                        id: 'rdg-garde',
+                        ref: 'RDG - Service Intérieur, Garde et Sentinelle',
+                        title: 'Service de Garde : Consignes Générales et Particulières de la Sentinelle',
+                        content: `1. RÔLE DE LA SENTINELLE :
+La sentinelle est un militaire en armes placé en faction pour assurer la sécurité d'un poste, d'un dépôt, d'une emprise ou d'un bivouac. Sa personne est inviolable.
+
+2. CONSIGNES GÉNÉRALES DE TOUTE SENTINELLE :
+- Ne jamais quitter son poste avant d'avoir été relevé régulièrement par le chef de poste ou le caporal de relève.
+- Ne jamais se dessaisir de son arme.
+- Ne jamais s'asseoir, ni fumer, ni manger, ni dormir, ni utiliser de téléphone personnel en faction.
+- Rester constamment vigilant, observer et écouter tout ce qui se passe aux abords.
+- Faire respecter les consignes particulières du poste (contrôle d'accès, mots d'ordre, sommations réglementaires).
+
+3. PROCÉDURE DE SOMMATION DE NUIT :
+1) À approche suspecte : « HALTE ! QUI VIVE ? »
+2) En l'absence de réponse claire ou d'arrêt : « HALTE OU JE FAIS FEU ! » (en armant ostensiblement).
+3) En cas de menace imminente ou de franchissement forcé : Ouverture du feu conformément aux Règles d'Engagement (ROE).`
+                    }
+                ]
+            },
+            {
+                id: 'mod-tta150',
+                code: 'MOD-03',
+                icon: '📘',
+                title: 'TTA 150 Intégral (Titres I à XII)',
+                subtitle: 'Texte Toutes Armes 150 : Formation générale du combattant de A à Z.',
+                lessons: [
+                    {
+                        id: 'tta-t1',
+                        ref: 'TTA 150 — TITRE I',
+                        title: 'Titre I : Formation Générale, Morale et Civique du Combattant',
+                        content: `OBJET DU TITRE I DU TTA 150 :
+Inculquer au soldat les valeurs fondamentales de l'état militaire : loyauté envers la Nation, esprit de sacrifice, camaraderie, discipline, honneur et respect strict de l'éthique du combattant.
+- Connaissance des symboles nationaux (Drapeau, Hymne national, Devise).
+- Compréhension de l'organisation de la Défense Nationale et de la chaîne hiérarchique.
+- Esprit de corps : solidarité indéfectible au sein du trinôme, du groupe et de la section.`
+                    },
+                    {
+                        id: 'tta-t2',
+                        ref: 'TTA 150 — TITRE II',
+                        title: 'Titre II : Topographie Militaire et Orientation',
+                        content: `OBJET DU TITRE II DU TTA 150 :
+Rendre tout combattant autonome pour se situer, s'orienter et se déplacer sur le terrain de jour comme de nuit.
+- Lecture de la carte topographique (planimétrie, nivellement, courbes de niveau, équidistance).
+- Utilisation des coordonnées géographiques et du quadrillage UTM / MGRS (lecture en « L » : abscisse X puis ordonnée Y).
+- Emploi de la boussole, mesure et suivi d'un azimut (en degrés 360° et en millièmes OTAN 6400 ₥).
+- Orientation sans boussole (soleil, étoile polaire, montre, indices naturels).`
+                    },
+                    {
+                        id: 'tta-t3',
+                        ref: 'TTA 150 — TITRE III',
+                        title: 'Titre III : Combat Individuel et Collectif (Trinôme / Groupe)',
+                        content: `OBJET DU TITRE III DU TTA 150 :
+Maîtriser les techniques de combat débarqué en terrain ouvert et en zone urbaine (AZUR).
+- Les 3 actes élémentaires : Se déplacer, Se poster, Utiliser son arme.
+- Les 11 actes réflexes du combattant (S'orienter, Observer, Progresser, Se protéger, Se camoufler, Apprécier une distance, Désigner un objectif, Tirer, Communiquer, Rendre compte, Garder la liaison).
+- Camouflage : règle FFOMECBLOT.
+- Compte-rendu d'observation : PADE (Position, Attitude, Direction, Effectif) ou MOI / VDO.`
+                    },
+                    {
+                        id: 'tta-t4',
+                        ref: 'TTA 150 — TITRE IV',
+                        title: 'Titre IV : Armement et Instruction Sur le Tir de Combat (ISTC)',
+                        content: `OBJET DU TITRE IV DU TTA 150 :
+Garantir la sécurité absolue dans le maniement des armes et l'efficacité au tir en situation opérationnelle.
+- Les 4 règles fondamentales de sécurité ISTC.
+- Connaissance technique, démontage sommaire, entretien et remontage des armes individuelles et collectives.
+- Les 5 fondamentaux du tir (Position, Prise en main, Visée, Respiration, Action du doigt sur la détente).
+- Résolution immédiate des incidents de tir (TAP-RACK-BANG) et rechargements tactiques/d'urgence.`
+                    },
+                    {
+                        id: 'tta-t5',
+                        ref: 'TTA 150 — TITRE V',
+                        title: 'Titre V : Transmissions et Procédures Radio',
+                        content: `OBJET DU TITRE V DU TTA 150 :
+Assurer la liaison radio fiable, discrète et réglementaire entre les échelons tactiques.
+- Alphabet phonétique international OTAN (Alpha à Zulu) et prononciation des chiffres.
+- Discipline radio et règles COMSEC (écoute avant émission, brièveté, utilisation des indicatifs et fréquences).
+- Structure des messages opérationnels standards et message d'évacuation sanitaire MEDEVAC 9-Line.`
+                    },
+                    {
+                        id: 'tta-t6',
+                        ref: 'TTA 150 — TITRE VI',
+                        title: 'Titre VI : Génie de Combat, Mines, Pièges et Explosifs',
+                        content: `OBJET DU TITRE VI DU TTA 150 :
+Protéger les troupes contre les engins explosifs et organiser le terrain.
+- Identification des mines antipersonnel, mines antichar, sous-munitions et engins explosifs improvisés (EEI/IED).
+- Conduite à tenir face à un engin suspect : Procédure des 5 C (Confirmer, Couvrir/Évacuer, Contrôler, Communiquer, Consigner).
+- Réalisation d'emplacements de combat individuels (trou d'homme), camouflage d'ouvrages et franchissement d'obstacles.`
+                    },
+                    {
+                        id: 'tta-t7',
+                        ref: 'TTA 150 — TITRE VII',
+                        title: 'Titre VII : Défense Nucléaire, Radiologique, Biologique et Chimique (NRBC)',
+                        content: `OBJET DU TITRE VII DU TTA 150 :
+Survivre et poursuivre le combat en atmosphère contaminée.
+- Caractéristiques des menaces nucléaires (souffle, thermique, radiation), radiologiques, biologiques et chimiques (neurotoxiques, vésicants, suffocants).
+- Mise en place réflexe du masque de protection en moins de 9 secondes en apnée.
+- Port de la tenue filtrante (T3P/S3P), utilisation du papier détecteur PDF1 et décontamination d'urgence.`
+                    },
+                    {
+                        id: 'tta-t8',
+                        ref: 'TTA 150 — TITRE VIII',
+                        title: 'Titre VIII : Sauvetage au Combat (SC1) et Secourisme Opérationnel',
+                        content: `OBJET DU TITRE VIII DU TTA 150 :
+Sauver la vie d'un camarade blessé au combat avant sa prise en charge médicale.
+- Extraction sous le feu et pose immédiate du garrot tactique tourniquet.
+- Application rigoureuse du protocole MARCHE-RYAN à l'abri du feu.
+- Pansement compressif israélien, pansement thoracique occlusif, lutte contre l'hypothermie et préparation MEDEVAC.`
+                    },
+                    {
+                        id: 'tta-t9',
+                        ref: 'TTA 150 — TITRE IX',
+                        title: 'Titre IX : Renseignement et Observation du Champ de Bataille',
+                        content: `OBJET DU TITRE IX DU TTA 150 :
+Collecter et transmettre des informations fiables sur l'ennemi, le terrain et la population.
+- Techniques d'observation méthodique (découpage du terrain par plans : proche, moyen, lointain).
+- Reconnaissance des matériels, véhicules et uniformes adverses.
+- Rédaction et transmission immédiate des comptes-rendus PADE sans interprétation.`
+                    },
+                    {
+                        id: 'tta-t10',
+                        ref: 'TTA 150 — TITRE X',
+                        title: 'Titre X : Logistique, Vie en Campagne et Maintien en Condition',
+                        content: `OBJET DU TITRE X DU TTA 150 :
+Préserver la capacité opérationnelle du combattant et de ses matériels dans la durée.
+- Installation et sécurité d'un bivouac tactique (garde, camouflage, gestion des déchets).
+- Hygiène en campagne, gestion de l'eau potable, prévention des maladies tropicales et coup de chaleur.
+- Entretien quotidien de l'armement, des optiques et des dotations en munitions et rations.`
+                    },
+                    {
+                        id: 'tta-t11',
+                        ref: 'TTA 150 — TITRE XI',
+                        title: 'Titre XI : Entraînement Physique Militaire et Sportif (EPMS)',
+                        content: `OBJET DU TITRE XI DU TTA 150 :
+Développer la rusticité, l'endurance et la force fonctionnelle exigées par le combat moderne.
+- Marche tactique avec charge (SAC + Armement) et parcours d'obstacles.
+- Techniques de franchissement, transport de blessés et combat corps à corps (TIOR).`
+                    },
+                    {
+                        id: 'tta-t12',
+                        ref: 'TTA 150 — TITRE XII',
+                        title: 'Titre XII : Droit des Conflits Armés (DCA / DIH)',
+                        content: `OBJET DU TITRE XII DU TTA 150 :
+Appliquer les règles du Droit International Humanitaire (Conventions de Genève) en opérations.
+- Distinction stricte entre combattants et personnes civiles.
+- Interdiction d'attaquer les blessés, les naufragés, les personnels sanitaires/religieux et les prisonniers de guerre.
+- Traitement humain des prisonniers capturés (désarmer, fouiller, garder, évacuer vers l'arrière sans sévices).
+- Proportionnalité dans l'emploi de la force et protection des biens culturels et sanitaires.`
+                    }
+                ]
+            },
+            {
+                id: 'mod-armement',
+                code: 'MOD-04',
+                icon: '🔫',
+                title: 'Armement & Fiches Techniques',
+                subtitle: 'RPG-7, Browning .50, M60, M4/M16, 14.7mm KPV, 12.7mm Chinoise, FN FAL, FLG.',
+                lessons: [
+                    {
+                        id: 'arm-rpg7',
+                        ref: 'TTA 150 Titre IV / Manuel Armement Collectif',
+                        title: 'Lance-Roquettes Antichar RPG-7 (40 mm / 85 mm)',
+                        content: `1. PRÉSENTATION & RÔLE :
+Arme antichar individuelle portable, sans recul, à chargement par la bouche, destinée à détruire les chars, véhicules blindés, fortifications et personnels abrités.
+
+2. CARACTÉRISTIQUES TECHNIQUES :
+- Calibre du tube : 40 mm | Calibre des ogives : 70 à 105 mm (85 mm standard PG-7V).
+- Longueur : 950 mm | Poids à vide : 6,3 kg (7,0 kg avec lunette optique PGO-7V).
+- Portée utile / pratique : 300 m sur objectif mobile / 500 m sur objectif fixe.
+- Portée maximale : 920 m (autodestruction de la roquette après ~4,5 secondes de vol).
+- Vitesse initiale : 115 m/s (propulseur de croisière accélère la roquette à 294 m/s).
+- Cadence de tir pratique : 4 à 6 coups/minute.
+- Viseur optique PGO-7V : Grossissement 2,7x avec stadimètre de mesure de distance (hauteur cible 2,7 m).
+
+3. MUNITIONS & POUVOIR DE PERFORATION :
+- PG-7V (85 mm) : Charge creuse simple, perfore 260 mm d'acier blindé homogène (RHA).
+- PG-7VL (93 mm) : Charge creuse renforcée, perfore 500 mm d'acier blindé.
+- PG-7VR (105 mm) : Charge creuse TANDEM (double ogive) contre blindage réactif explosif (ERA), perfore 600-750 mm RHA.
+- OG-7V (40 mm) : Ogive antipersonnel à fragmentation (rayon létal ~15 m, portée jusqu'à 700 m).
+
+4. SÉCURITÉ CRITIQUE :
+- Zone dangereuse arrière (cône de souffle) : 30 mètres derrière la tuyère. Interdiction formelle de tirer avec un obstacle à moins de 2 mètres derrière le tireur.
+- Retirer la goupille de sécurité de la fusée uniquement juste avant le tir.`
+                    },
+                    {
+                        id: 'arm-50',
+                        ref: 'FM 23-65 / TTA 150 Armement Lourd',
+                        title: 'Mitrailleuse Lourde Browning M2 HB .50 (12,7 x 99 mm OTAN)',
+                        content: `1. PRÉSENTATION :
+Mitrailleuse lourde refroidie par air, alimentée par bande métallique à maillons désintégrables M9 (alimentation gauche ou droite réversible), fonctionnant par court recul du canon.
+
+2. CARACTÉRISTIQUES TECHNIQUES :
+- Calibre : 12,7 x 99 mm OTAN (.50 BMG).
+- Poids : 38 kg (arme seule) / 58 kg (avec trépied M3).
+- Longueur totale : 1 654 mm | Longueur canon lourd (HB) : 1 143 mm.
+- Vitesse initiale : 890 m/s.
+- Cadence de tir théorique : 450 à 600 coups/minute (possibilité de tir coup par coup ou rafales).
+- Portée pratique : 1 500 m (cibles ponctuelles) à 1 800 m (cibles de zone).
+- Portée maximale : 6 800 m.
+- Munitions : Ordinaire (M33), Perforante (AP), Perforante Incendiaire (API), Perforante Incendiaire Traçante (API-T), SLAP (Sabot).
+
+3. RÉGLAGES CRITIQUES (FEUILLURE & RETARD À L'ALLUMAGE) :
+- Feuillure (Headspace) : Distance entre la face avant de la culasse et le culot de la cartouche chambrée. Se règle par vissage/dévissage du canon et se contrôle avec la jauge « GO / NO-GO ».
+- Retard à l'allumage (Timing) : Synchronisation de la percussion au moment exact où le canon est verrouillé. Se contrôle avec les jauges « FIRE / NO-FIRE ». Un mauvais réglage entraîne une rupture d'étui ou l'explosion de la culasse.`
+                    },
+                    {
+                        id: 'arm-m60',
+                        ref: 'FM 23-67 / Manuel Armement Collectif',
+                        title: 'Mitrailleuse Polyvalente M60 (7,62 x 51 mm OTAN)',
+                        content: `1. PRÉSENTATION :
+Mitrailleuse générale d'appui d'infanterie fonctionnant par emprunt des gaz et verrouillage par culasse rotative, alimentée par bande métallique à maillons détachables M13 (par la gauche).
+
+2. CARACTÉRISTIQUES TECHNIQUES :
+- Calibre : 7,62 x 51 mm OTAN.
+- Poids : 10,5 kg (avec bipied intégré).
+- Longueur : 1 105 mm | Canon : 560 mm.
+- Cadence de tir théorique : 550 coups/minute | Cadence pratique : 100 coups/min (rafales courtes de 6 à 9 cartouches).
+- Portée pratique : 800 m sur bipied / 1 100 m sur trépied M122.
+- Portée maximale : 3 725 m.
+- Vitesse initiale : 853 m/s.
+
+3. CHANGEMENT RAPIDE DE CANON :
+Le canon de la M60 intègre le cylindre à gaz et le bipied. En tir soutenu, le canon doit être remplacé toutes les 200 cartouches à l'aide du gant ignifugé réglementaire pour éviter la surchauffe et la déformation du tube.`
+                    },
+                    {
+                        id: 'arm-m4-m16',
+                        ref: 'FM 3-22.9 / TTA 150 Titre IV ISTC',
+                        title: 'Carabine M4 & Fusil d\'Assaut M16A2 / M16A4 (5,56 x 45 mm OTAN)',
+                        content: `1. PRÉSENTATION & FONCTIONNEMENT :
+Armes individuelles fonctionnant par emprunt des gaz direct (tube adducteur sans piston, les gaz agissent directement sur le transporteur de culasse) et culasse rotative à 7 tenons.
+
+2. CARACTÉRISTIQUES TECHNIQUES COMPARÉES :
+- Calibre : 5,56 x 45 mm OTAN (munitions M193 55 grains ou SS109/M855 62 grains).
+- Chargeur : 30 cartouches (STANAG).
+- Fusil M16A2 / M16A4 :
+  * Longueur : 1 006 mm | Canon : 508 mm (20 pouces).
+  * Poids : 3,4 kg (vide) / 3,9 kg (chargé).
+  * Vitesse initiale : 948 m/s | Portée pratique : 550 m (cible individuelle) / 800 m (cible de zone).
+  * Modes de tir : Sûreté (SAFE), Coup par coup (SEMI), Rafale limitée 3 coups (BURST).
+- Carabine M4 / M4A1 :
+  * Crosse télescopique (longueur 757 à 838 mm) | Canon : 368 mm (14,5 pouces).
+  * Poids : 2,9 kg (vide) / 3,4 kg (chargé).
+  * Vitesse initiale : 884 m/s | Portée pratique : 300 à 500 m (cible individuelle) / 600 m (cible de zone).
+  * Cadence théorique : 700 à 950 coups/minute (M4A1 dispose du tir automatique continu AUTO).
+
+3. MESURES DE SÉCURITÉ ISTC :
+- Ne jamais manœuvrer le sélecteur de tir sur « SAFE » tant que le marteau n'est pas armé.
+- Contrôler visuellement et physiquement la chambre (doigt dans la fenêtre d'éjection) lors de toute mise en sécurité.`
+                    },
+                    {
+                        id: 'arm-147',
+                        ref: 'Manuel Artillerie Sol-Air / Armement Lourd',
+                        title: 'Mitrailleuse Lourde Antiaérienne 14,7 mm KPV / ZPU (14,5 x 114 mm)',
+                        content: `1. PRÉSENTATION :
+Mitrailleuse lourde antiaérienne et antichar léger (Vladimirov KPV) montée sur affût tracté ou plateau de véhicule tactique : ZPU-1 (monotube), ZPU-2 (bitube), ZPU-4 (quadritube).
+
+2. CARACTÉRISTIQUES TECHNIQUES :
+- Calibre : 14,5 x 114 mm (couramment appelée 14,7 mm dans les unités).
+- Principe de fonctionnement : Court recul du canon avec verrouillage par rotation de la tête de culasse.
+- Poids : 49,1 kg (arme seule) | Affût ZPU-2 complet : ~950 kg.
+- Vitesse initiale : 990 à 1 000 m/s (énergie cinétique ~32 000 Joules, soit le double d'une 12,7 mm).
+- Cadence de tir théorique : 600 coups/minute par tube (soit 1 200 cps/min sur ZPU-2 et 2 400 cps/min sur ZPU-4).
+- Portée pratique : 1 400 m en tir antiaérien / 2 000 m sur objectifs terrestres.
+- Portée maximale : 7 000 à 8 000 m.
+- Perforation blindage : Perfore 32 mm d'acier blindé incliné à 500 m (efficace contre tous les véhicules blindés légers VBL/VAB et hélicoptères).`
+                    },
+                    {
+                        id: 'arm-127-cn',
+                        ref: 'Notice Technique Armement Lourd (Type 54 / W85)',
+                        title: 'Mitrailleuse Lourde 12,7 mm Chinoise Type 54 / W85 (12,7 x 108 mm)',
+                        content: `1. PRÉSENTATION :
+Mitrailleuse lourde d'appui terrestre et de défense antiaérienne rapprochée :
+- Type 54 : Version chinoise de la DShKM soviétique (robuste, refroidissement à ailettes).
+- W85 : Version modernisée allégée de conception chinoise.
+
+2. CARACTÉRISTIQUES TECHNIQUES :
+- Calibre : 12,7 x 108 mm (incompatible avec le 12,7x99mm OTAN).
+- Fonctionnement : Emprunt des gaz avec piston à longue course.
+- Alimentation : Bande métallique de 50 cartouches.
+- Poids : Type 54 (~34 kg arme seule, 90 kg avec affût à roues) | W85 (~18,5 kg arme seule, 41 kg avec trépied).
+- Cadence de tir théorique : 540 à 600 coups/minute.
+- Vitesse initiale : 825 à 850 m/s.
+- Portée pratique : 1 500 à 1 600 m sur objectifs terrestres / 1 000 m sur cibles aériennes à basse altitude.
+- Munitions : Perforante Incendiaire (API) et Perforante Incendiaire Traçante (APIT) capables de percer 20 mm d'acier à 500 m.`
+                    },
+                    {
+                        id: 'arm-fal',
+                        ref: 'TTA 150 / Manuel d\'Instruction Armement',
+                        title: 'Fusil d\'Assaut FN FAL (7,62 x 51 mm OTAN)',
+                        content: `1. PRÉSENTATION :
+Fusil Automatique Léger (FN Herstal), arme de bataille de référence réputée pour sa puissance d'arrêt et sa précision à moyenne distance.
+
+2. CARACTÉRISTIQUES TECHNIQUES :
+- Calibre : 7,62 x 51 mm OTAN.
+- Fonctionnement : Emprunt des gaz avec piston à courte course et culasse calée (verrouillage par basculement de l'arrière de la culasse).
+- Régulateur des gaz : Bague graduée permettant d'adapter la pression des gaz en cas d'encrassement, de sable ou de tir de grenades.
+- Poids : 4,3 kg (vide) | Longueur : 1 090 mm.
+- Capacité du chargeur : 20 cartouches.
+- Vitesse initiale : 840 m/s | Portée pratique : 600 m | Portée maximale : 3 000 m.
+- Cadence théorique : 650 à 700 coups/minute (emploi au coup par coup recommandé pour maîtriser le recul).`
+                    },
+                    {
+                        id: 'arm-flg',
+                        ref: 'FM 3-22.31 / Manuel Grenades à Fusil & FLG',
+                        title: 'Fusil Lance-Grenades FLG (40 x 46 mm Basse Vitesse & Grenades à Fusil)',
+                        content: `1. PRÉSENTATION :
+Système d'appui direct de l'équipe de combat permettant de neutraliser des objectifs défilés, des véhicules légers ou des personnels abrités. Comprend les lance-grenades sous canon (M203 / M320 calibre 40x46mm basse vitesse) et le tir de grenades à fusil (emmanchées sur cache-flamme).
+
+2. CARACTÉRISTIQUES TECHNIQUES (40 x 46 mm BASSE VITESSE) :
+- Calibre : 40 x 46 mm basse vitesse (vitesse initiale : 76 m/s).
+- Portée pratique : 150 m sur cible ponctuelle (fenêtre, véhicule) / 350 m sur cible de zone.
+- Portée maximale : 400 m.
+- Munitions principales :
+  * HEDP (M433) : Explosive à double effet (perfore 50 mm d'acier + fragmentation antipersonnel rayon 5 m).
+  * HE (M406) : Explosive à fragmentation.
+  * Fumigène (marquage/masquage), Éclairante (parachute), Gaz CS.
+- Sécurité d'armement de la fusée : La grenade ne s'arme par force centrifuge qu'après avoir parcouru entre 14 et 27 mètres hors du canon.
+
+3. RÈGLES SPÉCIFIQUES AU TIR DE GRENADE À FUSIL :
+- Fermer impérativement le bouchon d'emprunt des gaz (position « GR »).
+- Utiliser une cartouche feuillette (sans balle) si la grenade n'est pas équipée d'un piège à balle.
+- Ne jamais épauler contre la joue en tir courbe (tenir la crosse fermement sous l'aisselle ou en appui au sol).`
+                    }
+                ]
+            },
+            {
+                id: 'mod-istc',
+                code: 'MOD-05',
+                icon: '🎯',
+                title: 'ISTC — Instruction Sur le Tir de Combat',
+                subtitle: 'Les 4 règles de sécurité, 4 positions de tir, gestes réflexes, résolution d\'incidents.',
+                lessons: [
+                    {
+                        id: 'istc-1',
+                        ref: 'TTA 150 Titre IV - ISTC',
+                        title: 'Les 4 Règles Fondamentales de Sécurité, Positions et Gestes Réflexes',
+                        content: `1. LES 4 RÈGLES FONDAMENTALES DE SÉCURITÉ (ISTC) :
+- Règle N°1 : Une arme doit toujours être considérée comme chargée.
+- Règle N°2 : Ne jamais pointer ou laisser pointer le canon d'une arme sur quelque chose que l'on ne veut pas détruire.
+- Règle N°3 : Garder l'index hors de la détente tant que les organes de visée ne sont pas sur l'objectif.
+- Règle N°4 : Être sûr de son objectif et de son environnement (avant, derrière, latéralement).
+
+2. LES 4 POSITIONS DE TIR AU COMBAT :
+- Position Debout : Tir rapide à courte distance et déplacement dynamique.
+- Position à Genou : Réduction de la silhouette, bonne stabilité (coude faible en appui sur le genou).
+- Position Assise : Stabilité élevée sur terrain en pente ou poste d'observation.
+- Position Couchée : Stabilité maximale pour le tir de précision à moyenne/longue distance et protection minimale face aux tirs ennemis.
+
+3. GESTES RÉFLEXES & INCIDENTS DE TIR :
+- Rechargement d'urgence (culasse bloquée en arrière en plein combat) : Éjecter le chargeur vide, insérer un chargeur plein, frapper le fond, relâcher l'arrêtoir de culasse, reprendre la visée.
+- Rechargement tactique (à l'abri pendant une accalmie) : Prélever un chargeur plein, retirer le chargeur partiel et le ranger dans une poche (ne jamais le jeter), insérer le chargeur plein.
+- Incident simple (non-départ) : TAP - RACK - BANG (Frapper le chargeur, manœuvrer le levier d'armement, viser et tirer).
+- Incident complexe (double alimentation) : Verrouiller la culasse en arrière, arracher le chargeur, manœuvrer la culasse 3 fois pour vider la chambre, insérer un nouveau chargeur, armer.`
+                    }
+                ]
+            },
+            {
+                id: 'mod-combat',
+                code: 'MOD-06',
+                icon: '⚔️',
+                title: 'Combat (Groupe et Section)',
+                subtitle: 'Actes réflexes (PADE), actes élémentaires, FFOMECBLOT, MOI/VDO, SMEPP/PATRACDR, AZUR.',
+                lessons: [
+                    {
+                        id: 'cbt-1',
+                        ref: 'TTA 150 Titre III / FM 3-21.8 Infanterie',
+                        title: 'Actes Élémentaires, Camouflage FFOMECBLOT et Comptes-Rendus (PADE / MOI)',
+                        content: `1. LES 3 ACTES ÉLÉMENTAIRES DU COMBATTANT :
+- Se déplacer (progresser de couvert en couvert en utilisant le terrain).
+- Se poster (s'installer à un emplacement permettant d'observer et de tirer sans être vu ni atteint).
+- Utiliser son arme (tirer, lancer une grenade, rendre compte).
+
+2. CAMOUFLAGE — MÉMO TECHNIQUE FFOMECBLOT :
+- F : Fond (se fondre dans le décor et l'arrière-plan).
+- F : Forme (casser les lignes géométriques de l'homme et de l'équipement).
+- O : Ombre (utiliser les zones d'ombre, éviter de projeter son ombre).
+- M : Mouvement (pas de geste brusque, progresser lentement à découvert).
+- E : Éclat (supprimer tout reflet optique ou métallique).
+- C : Couleur (maquillage et végétation locale).
+- B : Bruit (silence absolu).
+- L : Lumière (discipline nocturne stricte).
+- O : Odeur (absence de parfum, tabac, cuisine).
+- T : Traces (effacer les empreintes et déchets).
+
+3. COMPTES-RENDUS TACTIQUES (PADE & MOI / VDO) :
+- PADE : Position (où est l'ennemi), Attitude (ce qu'il fait), Direction (vers où il va), Effectif & armement.
+- VDO (Désignation d'objectif) : Direction, Distance, Description de l'objectif.
+- Ordre initial du chef de groupe : SMEPP (Situation, Mission, Exécution, Place du chef / Logistique, Commandement / Transmissions) et PATRACDR pour la préparation.`
+                    },
+                    {
+                        id: 'cbt-azur',
+                        ref: 'Doctrine Combat en Zone Urbaine (AZUR)',
+                        title: 'Principes du Combat en Zone Urbaine (AZUR)',
+                        content: `1. SPÉCIFICITÉS DU MILIEU URBAIN :
+Combat tridimensionnel (sous-sols, rez-de-chaussée, étages, toits), compartimentage élevé, distances d'engagement très courtes (0 à 100 m) et présence de populations civiles.
+
+2. RÈGLES DE PROGRESSION EN LOCALITÉ :
+- Ne jamais progresser au milieu d'une rue : longer les façades en quinconce en surveillant les ouvertures opposées (fenêtres, soupiraux, toits).
+- Traverser les rues découvertes rapidement sous appui fumigène et couverture mutuelle.
+- Entrée dans une pièce (CQB) : Couverture des angles morts (« nettoyer les coins »), progression dynamique en binôme/trinôme, ne jamais s'arrêter dans l'encadrement d'une porte (« entonnoir de la mort »).`
+                    }
+                ]
+            },
+            {
+                id: 'mod-topo',
+                code: 'MOD-07',
+                icon: '🧭',
+                title: 'Topographie Militaire',
+                subtitle: 'UTM/MGRS, courbes de niveau, équidistance, pente, azimut, millièmes OTAN (6400).',
+                lessons: [
+                    {
+                        id: 'topo-1',
+                        ref: 'TTA 150 Titre II / FM 3-25.26 Topographie',
+                        title: 'Coordonnées UTM/MGRS, Nivellement, Pente et Millièmes OTAN (6400)',
+                        content: `1. SYSTÈME ANGULAIRE MILITAIRE (MILLIÈME OTAN) :
+- Cercle complet = 360° = 400 grades = 6 400 millièmes OTAN (₥).
+- Équivalences clés : 90° = 1 600 ₥ | 180° = 3 200 ₥ | 270° = 4 800 ₥ | 1° ≈ 17,78 ₥.
+- Formule du millième (estimation des distances) :
+  Distance (m) = [Largeur ou Hauteur connue de l'objectif (m) × 1 000] / Angle mesuré en millièmes (₥).
+
+2. LECTURE DES COORDONNÉES QUADRILLÉES (UTM / MGRS) :
+- Règle absolue : Toujours lire en « L » — d'abord l'Abscisse (X, de gauche à droite), puis l'Ordonnée (Y, de bas en haut).
+- Précision : 6 chiffres = carré de 100 m | 8 chiffres = carré de 10 m | 10 chiffres = 1 m.
+
+3. NIVELLEMENT, ÉQUIDISTANCE ET CALCUL DE PENTE :
+- Courbe de niveau : Ligne imaginaire reliant tous les points situés à la même altitude.
+- Équidistance : Différence d'altitude constante séparant deux courbes de niveau consécutives (ex: 10 m ou 20 m). Plus les courbes sont serrées, plus la pente est raide.
+- Calcul de la pente (%) : Pente (%) = (Dénivelé en mètres / Distance horizontale en mètres) × 100.`
+                    }
+                ]
+            },
+            {
+                id: 'mod-trans',
+                code: 'MOD-08',
+                icon: '📻',
+                title: 'Transmissions & Procédures Radio',
+                subtitle: 'Alphabet phonétique OTAN, discipline COMSEC, collationnement, MEDEVAC 9-Line.',
+                lessons: [
+                    {
+                        id: 'trans-1',
+                        ref: 'TTA 150 Titre V / ACP 125',
+                        title: 'Alphabet Phonétique OTAN, Règles COMSEC et Message MEDEVAC 9-Line',
+                        content: `1. ALPHABET PHONÉTIQUE INTERNATIONAL :
+A: Alpha | B: Bravo | C: Charlie | D: Delta | E: Echo | F: Foxtrot | G: Golf | H: Hotel | I: India | J: Juliett | K: Kilo | L: Lima | M: Mike | N: November | O: Oscar | P: Papa | Q: Quebec | R: Romeo | S: Sierra | T: Tango | U: Uniform | V: Victor | W: Whiskey | X: X-ray | Y: Yankee | Z: Zulu.
+
+2. RÈGLES DE SÉCURITÉ DES TRANSMISSIONS (COMSEC) :
+- Écouter avant d'émettre.
+- Messages brefs, clairs et structurés (pas d'improvisation au micro).
+- Collationnement obligatoire : Répéter mot pour mot les coordonnées, fréquences, heures et ordres critiques reçus.
+- Authentification par table de code en cas de doute sur l'identité du correspondant.
+
+3. MESSAGE D'ÉVACUATION SANITAIRE (MEDEVAC 9-LINE) :
+- Ligne 1 : Coordonnées de la zone de posé (LZ).
+- Ligne 2 : Fréquence radio et indicatif sur zone.
+- Ligne 3 : Nombre de blessés par urgence (A: Urgent, B: Urgent chirurgical, C: Prioritaire, D: Routine).
+- Ligne 4 : Équipement spécial (Treuil, extraction).
+- Ligne 5 : Nombre de blessés par type (L: Couchés / Brancard, A: Assis).
+- Ligne 6 : Sécurité de la LZ (N: Aucun ennemi, P: Ennemi possible, E: Ennemi présent, X: Escorte armée requise).
+- Ligne 7 : Marquage de la LZ (Panneaux, fumigène couleur, balise IR).
+- Ligne 8 : Nationalité et statut des blessés.
+- Ligne 9 : Contamination NRBC de la zone.`
+                    }
+                ]
+            },
+            {
+                id: 'mod-sc1',
+                code: 'MOD-09',
+                icon: '🩹',
+                title: 'Sauvetage au Combat (SC1 / TCCC)',
+                subtitle: 'Protocole MARCHE-RYAN, garrot tourniquet, pansement israélien, hypothermie.',
+                lessons: [
+                    {
+                        id: 'sc1-1',
+                        ref: 'TTA 150 Titre VIII / Doctrine TCCC',
+                        title: 'Soins sous le Feu & Protocole Complet MARCHE-RYAN',
+                        content: `1. SOINS SOUS LE FEU (CARE UNDER FIRE) :
+- Riposter pour obtenir la supériorité du feu.
+- Extraire le blessé vers un abri sûr.
+- En cas d'hémorragie massive d'un membre : poser immédiatement un garrot tactique tourniquet (« haut et serré » sur le membre).
+
+2. PROTOCOLE MARCHE-RYAN (À L'ABRI DU FEU) :
+- M (Massive Bleeding) : Contrôler les hémorragies massives (garrot tourniquet sur membre, pansement hémostatique + pansement compressif israélien aux jonctions). Inscrire l'heure de pose sur le front du blessé (« T = 14h25 »). Ne JAMAIS desserrer un garrot sur le terrain.
+- A (Airway) : Libérer les voies aériennes (subluxation mâchoire, canule nasopharyngée, position latérale de sécurité).
+- R (Respiration) : Rechercher une plaie soufflante du thorax et appliquer un pansement thoracique occlusif à valve.
+- C (Circulation) : Contrôler le pouls radial, poser des pansements compressifs sur les saignements secondaires.
+- H (Hypothermia / Head) : Prévenir l'hypothermie (couverture de survie même en climat chaud, car l'hypothermie empêche la coagulation du sang) et surveiller le traumatisme crânien.
+- E (Evacuation) : Préparer le brancardage et transmettre le MEDEVAC 9-Line.
+- RYAN : Réévaluer constamment, Yeux (coque de protection oculaire), Analgésie, Nettoyer/protéger les plaies.`
+                    }
+                ]
+            },
+            {
+                id: 'mod-mines',
+                code: 'MOD-10',
+                icon: '💣',
+                title: 'Mines, Pièges & Explosifs (EO / IED)',
+                subtitle: 'Mines AP/AC, Engins Explosifs Improvisés (EEI), indicateurs et procédure des 5 C.',
+                lessons: [
+                    {
+                        id: 'mine-1',
+                        ref: 'TTA 150 Titre VI - Danger Mines et IED',
+                        title: 'Indicateurs de Menace IED et Procédure de Réaction des 5 C',
+                        content: `1. TYPOLOGIE DES MENACES EXPLOSIVES :
+- Mines Antipersonnel (AP) : À effet de souffle ou à fragmentation/bondissantes (fils-pièges).
+- Mines Antichar (AC) : À pression forte (150-300 kg), magnétiques ou à charge formée.
+- Engins Explosifs Improvisés (EEI / IED) : Commandés par radio (RCIED), filaire (CWIED), victime (VOIED) ou véhicule piégé (VBIED).
+
+2. INDICATEURS DE MENACE SUR LE TERRAIN :
+- Terre fraîchement remuée, tas de pierres ou marquages inhabituels au bord des pistes.
+- Fils électriques fins, antennes dissimulées, boîtiers, carcasses d'animaux ou objets abandonnés aux points de passage obligés (ponts, gués, carrefours).
+- Absence inhabituelle de population civile ou de trafic sur un axe normalement fréquenté.
+
+3. PROCÉDURE RÉFLEXE FACE À UN IED / ENGINS SUSPECT (« LES 5 C ») :
+1) CONFIRMER : Identifier l'objet à distance avec les optiques, sans jamais s'approcher ni le toucher.
+2) COUVRIR / ÉVACUER : Stopper la colonne, vérifier ses pieds, reculer exactement dans ses propres traces et évacuer vers un abri à distance de sécurité (minimum 100 m à 300 m selon le volume).
+3) CONTRÔLER / BOUCLER : Interdire tout accès à la zone dangereuse et surveiller les points hauts environnants (risque d'embuscade associée).
+4) COMMUNIQUER : Transmettre un compte-rendu EOD/NEDEX précis (Position MGRS, nature de l'engin, environnement).
+5) CONSIGNER : Baliser l'itinéraire et enregistrer le danger sur la carte tactique.`
+                    }
+                ]
+            },
+            {
+                id: 'mod-nrbc',
+                code: 'MOD-11',
+                icon: '☣️',
+                title: 'Défense NRBC',
+                subtitle: 'Agents chimiques, tenue T3P/S3P, masque à gaz (<9 sec), détection et décontamination.',
+                lessons: [
+                    {
+                        id: 'nrbc-1',
+                        ref: 'TTA 150 Titre VII - Défense NRBC',
+                        title: 'Agents Chimiques, Tenue de Protection (T3P/S3P) et Décontamination',
+                        content: `1. PRINCIPAUX AGENTS CHIMIQUES DE GUERRE :
+- Neurotoxiques (Sarin, Soman, Tabun, VX) : Bloquent le système nerveux (myosis, hypersalivation, convulsions, arrêt respiratoire). Traitement d'urgence : seringue auto-injectante d'atropine/oxime.
+- Vésicants (Ypérite / Gaz moutarde, Lewisite) : Brûlures graves de la peau, des yeux et des voies respiratoires.
+- Suffocants (Chlore, Phosgène) : Œdème pulmonaire aigu.
+- Agents du sang (Acide cyanhydrique) : Bloquent l'oxygénation cellulaire.
+
+2. ALERTE CHIMIQUE ET PROTECTION INDIVIDUELLE :
+- Dès le cri « GAZ ! » ou détection sur papier PDF1 : bloquer sa respiration, fermer les yeux, mettre le masque de protection en moins de 9 secondes, expirer fort pour purger, vérifier l'étanchéité, crier « GAZ ! » et revêtir la tenue filtrante T3P/S3P (charbon actif) et les gants butyle.
+
+3. DÉCONTAMINATION D'URGENCE :
+- Utiliser immédiatement le gant décontaminant (terre à foulon) pour absorber les gouttelettes liquides sur la peau, le masque et l'armement avant le passage en centre de décontamination.`
+                    }
+                ]
+            },
+            {
+                id: 'mod-drones',
+                code: 'MOD-12',
+                icon: '🛸',
+                title: 'Guerre des Drones & Lutte Anti-Drones (LAD)',
+                subtitle: 'UAV reconnaissance/FPV, signatures thermique/acoustique/RF, camouflage et riposte.',
+                lessons: [
+                    {
+                        id: 'drone-1',
+                        ref: 'Doctrine Tactique Moderne / LATTA & LAD',
+                        title: 'Menaces UAV / FPV, Signatures et Riposte Passive & Active',
+                        content: `1. CATÉGORIES DE MENACES DRONES (UAV) :
+- Drones de reconnaissance et de réglage d'artillerie (optique jour + caméra thermique IR).
+- Drones kamikazes FPV (First Person View) à haute vitesse et drones largueurs de munitions.
+
+2. MAÎTRISE DES SIGNATURES :
+- Signature thermique : Le corps humain, les moteurs chauds et les feux brillent fortement la nuit en infrarouge. Utiliser des bâches anti-thermiques, le couvert végétal dense et couper les moteurs à l'arrêt.
+- Signature acoustique : Désigner un guetteur aérien permanent chargé de l'écoute du ciel.
+- Signature RF (Radiofréquence) : Limiter les émissions radio et éteindre tout téléphone portable personnel en zone d'opérations.
+
+3. RIPOSTE PASSIVE ET ACTIVE :
+- Mesures passives : Dispersion immédiate (espacement de 15 à 25 m entre personnels et 50 m entre véhicules), camouflage des traces d'accès aux PC.
+- Riposte active : Sur ordre, tirs de barrage groupés en avant de la trajectoire du drone (correction de visée importante), fusils calibre 12 à chevrotine et brouilleurs électromagnétiques portatifs.`
+                    }
+                ]
+            },
+            {
+                id: 'mod-epms',
+                code: 'MOD-13',
+                icon: '💪',
+                title: 'Entraînement Physique Militaire (EPMS)',
+                subtitle: 'Préparation opérationnelle, marche-commando, parcours d\'obstacles, prévention coup de chaleur.',
+                lessons: [
+                    {
+                        id: 'epms-1',
+                        ref: 'TTA 150 Titre XI - EPMS',
+                        title: 'Condition Physique Opérationnelle, Marche-Commando et Hydratation',
+                        content: `1. PILIERS DE L'EPMS :
+- Endurance fondamentale et résistance anaérobie (course en treillis, fractionné, marche-course).
+- Force fonctionnelle et gainage (port de charges lourdes, brancardage de blessé, franchissement de murs et obstacles).
+- Techniques d'Intervention Opérationnelle Rapprochée (TIOR) : Maîtrise de l'adversaire au corps à corps.
+
+2. PRÉVENTION DU COUP DE CHALEUR D'EXERCICE (CLIMAT CHAUD) :
+- Le coup de chaleur est une urgence vitale en zone sahélienne et soudanienne.
+- Hydratation fractionnée régulière avant, pendant et après l'effort (ne pas attendre la soif).
+- Surveillance mutuelle au sein du trinôme : repérer les signes d'alerte (titubation, confusion mentale, peau brûlante, arrêt de la transpiration) -> stopper immédiatement l'effort, mettre à l'ombre, déshabiller partiellement, refroidir par aspersion d'eau et évacuer en urgence.`
+                    }
+                ]
+            },
+            {
+                id: 'mod-psy',
+                code: 'MOD-14',
+                icon: '🧠',
+                title: 'Psychologie, Moral & Cohésion',
+                subtitle: 'Gestion du stress au combat, leadership militaire, résilience et prévention du TSPT.',
+                lessons: [
+                    {
+                        id: 'psy-1',
+                        ref: 'TTA 150 Titre I / Psychologie Opérationnelle',
+                        title: 'Gestion du Stress Opérationnel, Leadership et Cohésion d\'Unité',
+                        content: `1. COMPRENDRE ET MAÎTRISER LE STRESS DU COMBAT :
+- Le stress aigu déclenche une décharge d'adrénaline (accélération cardiaque, rétrécissement du champ visuel dit « vision tunnel », perte de motricité fine).
+- Outil de régulation immédiate : La respiration tactique (4 secondes d'inspiration, 4 secondes de rétention, 4 secondes d'expiration, 4 secondes de rétention) permet de reprendre le contrôle lucide en 30 secondes.
+
+2. LEADERSHIP ET MORAL DE LA TROUPE :
+- La confiance dans le chef et la maîtrise technique des automatismes réduisent l'anxiété face au danger.
+- Maintenir l'information descendante : expliquer le sens de la mission renforce la détermination.
+
+3. COHÉSION ET PRÉVENTION DU TSPT :
+- Après une action violente, organiser un débriefing tactique et humain au sein de l'unité.
+- Repérer les signes précoces de fatigue opérationnelle ou de Trouble de Stress Post-Traumatique (insomnie persistante, hypervigilance, repli sur soi) pour orienter le camarade vers le soutien médical et psychologique sans tabou.`
+                    }
+                ]
+            }
+        ];
+
+        const INITIAL_QUESTIONS = [
+            // FAS & RDG
+            { id: 'q-1', moduleId: 'mod-fas', level: 1, ref: 'Doctrine FAS', text: 'Quelle est la devise officielle des Forces Armées Sénégalaises ?', options: ['Honneur et Patrie', 'On nous tue, on ne nous déshonore pas', 'Toujours prêts pour la Nation', 'Force et Loyauté'], correct: 1, explanation: 'La devise officielle des Forces Armées Sénégalaises est : « On nous tue, on ne nous déshonore pas ».' },
+            { id: 'q-2', moduleId: 'mod-fas', level: 10, ref: 'Organisation FAS', text: 'Qui exerce le commandement opérationnel de l\'ensemble des Forces Armées Sénégalaises sous l\'autorité du Président de la République et du Ministre des Forces Armées ?', options: ['Le Chef d\'État-Major Général des Armées (CEMGA)', 'Le Commandant de la Zone N°1', 'Le Directeur du Matériel', 'Le Gouverneur militaire'], correct: 0, explanation: 'Le CEMGA (Chef d\'État-Major Général des Armées) exerce le commandement opérationnel des forces armées.' },
+            { id: 'q-3', moduleId: 'mod-fas', level: 25, ref: 'Zones Militaires FAS', text: 'Où est implanté le poste de commandement de la Zone Militaire N°2 du Sénégal ?', options: ['Dakar', 'Saint-Louis', 'Ziguinchor', 'Tambacounda'], correct: 1, explanation: 'La Zone Militaire N°2 couvre la région Nord avec son commandement basé à Saint-Louis.' },
+            { id: 'q-4', moduleId: 'mod-fas', level: 30, ref: 'Zones Militaires FAS', text: 'Combien de Zones Militaires structurent le territoire national sénégalais ?', options: ['5 Zones Militaires', '7 Zones Militaires', '10 Zones Militaires', '14 Zones Militaires'], correct: 1, explanation: 'Le territoire national est organisé en 7 Zones Militaires (N°1 Dakar, N°2 Saint-Louis, N°3 Kaolack, N°4 Tambacounda, N°5 Ziguinchor, N°6 Kolda, N°7 Thiès).' },
+            { id: 'q-5', moduleId: 'mod-fas', level: 15, ref: 'Titres de Commandement', text: 'Comment un militaire s\'adresse-t-il réglementairement à un Lieutenant-Colonel ?', options: ['Mon Lieutenant-Colonel', 'Mon Colonel', 'Mon Commandant', 'Chef'], correct: 1, explanation: 'Selon le règlement militaire, on dit « Mon Colonel » aussi bien à un Lieutenant-Colonel qu\'à un Colonel.' },
+            { id: 'q-6', moduleId: 'mod-rdg', level: 12, ref: 'RDG Sénégal', text: 'Comment s\'adresse-t-on réglementairement à un Sergent-Chef ?', options: ['Mon Sergent-Chef', 'Sergent-Chef', 'Mon Adjudant', 'Monsieur le Sergent'], correct: 1, explanation: 'L\'appellation « Mon » n\'est pas utilisée pour les sous-officiers subalternes (Sergent, Sergent-Chef).' },
+            { id: 'q-7', moduleId: 'mod-rdg', level: 40, ref: 'RDG - Garde et Sentinelle', text: 'Laquelle de ces actions est strictement interdite à une sentinelle en faction ?', options: ['Surveiller les abords', 'Quitter son poste avant d\'être relevé régulièrement ou se dessaisir de son arme', 'Effectuer les sommations réglementaires', 'Rendre compte au chef de poste'], correct: 1, explanation: 'Une sentinelle ne doit jamais quitter son poste avant d\'être relevée régulièrement ni se dessaisir de son arme.' },
+            { id: 'q-8', moduleId: 'mod-rdg', level: 65, ref: 'RDG - Obéissance', text: 'Dans quel cas exceptionnel un militaire a-t-il le devoir de ne pas exécuter un ordre ?', options: ['Lorsque la mission est fatigante', 'Lorsque l\'ordre prescrit d\'accomplir un acte manifestement illégal ou contraire aux lois de la guerre', 'Lorsqu\'il pleut', 'Lorsque l\'ordre est donné par écrit'], correct: 1, explanation: 'Le RDG impose l\'obéissance entière sauf si l\'ordre est manifestement illégal ou contraire au droit des conflits armés.' },
+
+            // TTA 150 Intégral
+            { id: 'q-9', moduleId: 'mod-tta150', level: 5, ref: 'TTA 150 Titre IV', text: 'Quel Titre du TTA 150 traite spécifiquement de l\'Armement et de l\'Instruction Sur le Tir de Combat (ISTC) ?', options: ['Titre I', 'Titre IV', 'Titre VIII', 'Titre XII'], correct: 1, explanation: 'Le Titre IV du TTA 150 regroupe l\'Armement et l\'Instruction Sur le Tir de Combat (ISTC).' },
+            { id: 'q-10', moduleId: 'mod-tta150', level: 35, ref: 'TTA 150 Titre XII', text: 'Que prescrit le Titre XII du TTA 150 (Droit des Conflits Armés) à l\'égard des prisonniers de guerre capturés ?', options: ['Les interroger sans eau ni nourriture', 'Les désarmer, les fouiller, les protéger et les évacuer humainement vers l\'arrière sans sévices', 'Les laisser sur la ligne de front', 'Confisquer leurs plaques d\'identité'], correct: 1, explanation: 'Conformément aux Conventions de Genève (Titre XII du TTA 150), tout prisonnier doit être désarmé, fouillé, protégé et traité avec humanité.' },
+
+            // Armement détaillé
+            { id: 'q-11', moduleId: 'mod-armement', level: 10, ref: 'Manuel Armement RPG-7', text: 'Quelle est la portée utile du lance-roquettes antichar RPG-7 sur un objectif mobile ?', options: ['100 mètres', '300 mètres', '800 mètres', '1 500 mètres'], correct: 1, explanation: 'La portée pratique du RPG-7 est de 300 m sur objectif mobile et 500 m sur objectif fixe.' },
+            { id: 'q-12', moduleId: 'mod-armement', level: 50, ref: 'Manuel Armement RPG-7', text: 'Quelle roquette du RPG-7 est équipée d\'une charge creuse TANDEM conçue pour vaincre les blindages réactifs explosifs (ERA) ?', options: ['PG-7V', 'OG-7V', 'PG-7VR', 'PG-7M'], correct: 2, explanation: 'La roquette PG-7VR (105 mm) possède une double charge creuse tandem perçant 600 à 750 mm d\'acier derrière un blindage réactif.' },
+            { id: 'q-13', moduleId: 'mod-armement', level: 20, ref: 'Manuel Armement RPG-7', text: 'Quelle est la profondeur de la zone dangereuse arrière (cône de souffle) derrière la tuyère du RPG-7 ?', options: ['5 mètres', '15 mètres', '30 mètres', '60 mètres'], correct: 2, explanation: 'Le cône de souffle arrière du RPG-7 s\'étend sur 30 mètres derrière la tuyère.' },
+            { id: 'q-14', moduleId: 'mod-armement', level: 45, ref: 'FM 23-65 Browning .50', text: 'Quel réglage mécanique critique doit être vérifié à l\'aide de jauges après chaque montage de canon sur la mitrailleuse Browning M2 HB .50 ?', options: ['Le réglage de la lunette', 'La feuillure (headspace) et le retard à l\'allumage (timing)', 'La pression des pneus', 'Le régulateur des gaz'], correct: 1, explanation: 'La Browning .50 nécessite impérativement le réglage de la feuillure (headspace) et du retard à l\'allumage (timing).' },
+            { id: 'q-15', moduleId: 'mod-armement', level: 55, ref: 'FM 23-67 Mitrailleuse M60', text: 'Quelle est la cadence pratique recommandée sur la mitrailleuse M60 (7,62x51mm) et tous les combien de coups faut-il changer le canon ?', options: ['100 cps/min — changement toutes les 200 cartouches', '550 cps/min — changement toutes les 1000 cartouches', '50 cps/min — jamais de changement', '300 cps/min — changement toutes les 50 cartouches'], correct: 0, explanation: 'La cadence pratique de la M60 est de 100 coups/minute (rafales de 6 à 9 coups) avec changement de canon toutes les 200 cartouches.' },
+            { id: 'q-16', moduleId: 'mod-armement', level: 30, ref: 'FM 3-22.9 M4/M16', text: 'Quel est le principe de fonctionnement de la carabine M4 et du fusil M16 (5,56x45mm OTAN) ?', options: ['Court recul du canon', 'Emprunt des gaz direct (tube adducteur) et culasse rotative à 7 tenons', 'Culasse non calée', 'Action à pompe'], correct: 1, explanation: 'Les M4/M16 fonctionnent par emprunt des gaz direct sans piston, les gaz agissant directement sur le transporteur de culasse.' },
+            { id: 'q-17', moduleId: 'mod-armement', level: 70, ref: 'Armement Lourd 14,7 mm', text: 'Quel est le calibre réel et la portée pratique au sol de la mitrailleuse lourde antiaérienne dite « 14,7 mm » (KPV / ZPU) ?', options: ['14,5 x 114 mm — portée au sol 2 000 m (1 400 m air)', '12,7 x 99 mm — portée 1 500 m', '20 x 102 mm — portée 3 000 m', '14,7 x 80 mm — portée 800 m'], correct: 0, explanation: 'La KPV (ZPU-1/2/4) tire du 14,5x114mm à 1 000 m/s, avec une portée pratique de 2 000 m au sol et 1 400 m en antiaérien.' },
+            { id: 'q-18', moduleId: 'mod-armement', level: 60, ref: 'Mitrailleuse Chinoise 12,7 mm', text: 'Quelle munition utilise la mitrailleuse lourde chinoise Type 54 / W85 ?', options: ['12,7 x 99 mm OTAN', '12,7 x 108 mm', '7,62 x 54 mm R', '14,5 x 114 mm'], correct: 1, explanation: 'Les mitrailleuses lourdes chinoises Type 54 et W85 emploient la munition de 12,7 x 108 mm.' },
+            { id: 'q-19', moduleId: 'mod-armement', level: 40, ref: 'Manuel FN FAL', text: 'À quoi sert le régulateur des gaz situé à l\'avant du cylindre sur le fusil FN FAL (7,62x51mm) ?', options: ['À régler la hausse de tir', 'À moduler la pression des gaz agissant sur le piston selon l\'encrassement ou le tir de grenades', 'À bloquer le chargeur', 'À réduire le bruit du tir'], correct: 1, explanation: 'Le régulateur des gaz du FAL permet d\'ajuster l\'admission des gaz pour garantir un fonctionnement fiable en milieu poussiéreux/encrassé.' },
+            { id: 'q-20', moduleId: 'mod-armement', level: 50, ref: 'Manuel FLG 40x46mm', text: 'À quelle distance minimale de la bouche du canon la fusée d\'une grenade 40x46mm basse vitesse (FLG) s\'arme-t-elle par rotation ?', options: ['Dès la sortie du canon (0 m)', 'Entre 14 et 27 mètres', 'À 100 mètres', 'À 300 mètres'], correct: 1, explanation: 'Par sécurité pour le tireur, la grenade 40x46mm basse vitesse ne s\'arme qu\'après avoir parcouru 14 à 27 mètres.' },
+
+            // ISTC, Combat, Topo, Trans, SC1, Mines, NRBC, Drones, EPMS, Psy
+            { id: 'q-21', moduleId: 'mod-istc', level: 5, ref: 'TTA 150 Titre IV - ISTC', text: 'Quelle est la 3e règle fondamentale de sécurité de l\'ISTC ?', options: ['Considérer l\'arme chargée', 'Garder l\'index hors de la détente tant que les organes de visée ne sont pas sur l\'objectif', 'Ne jamais nettoyer son arme chargé', 'Tirer uniquement couché'], correct: 1, explanation: 'La 3e règle ISTC impose de garder l\'index le long de la carcasse (hors de la détente) jusqu\'à l\'acquisition de la cible.' },
+            { id: 'q-22', moduleId: 'mod-istc', level: 35, ref: 'ISTC - Rechargement', text: 'Quelle est la différence entre un rechargement d\'urgence et un rechargement tactique ?', options: ['Le rechargement d\'urgence s\'effectue arme vide en plein combat ; le tactique s\'effectue à l\'abri en conservant le chargeur partiel dans une poche', 'Il n\'y a aucune différence', 'Le tactique consiste à jeter le chargeur au sol', 'L\'urgence se fait uniquement couché'], correct: 0, explanation: 'En rechargement tactique, on conserve toujours le chargeur partiellement garni dans une poche de récupération.' },
+            { id: 'q-23', moduleId: 'mod-combat', level: 15, ref: 'TTA 150 Titre III', text: 'Quels sont les 3 actes élémentaires du combattant ?', options: ['Courir, crier, tirer', 'Se déplacer, Se poster, Utiliser son arme', 'Creuser, manger, dormir', 'Observer, saluer, marcher'], correct: 1, explanation: 'Les 3 actes élémentaires du combattant sont : Se déplacer, Se poster et Utiliser son arme.' },
+            { id: 'q-24', moduleId: 'mod-combat', level: 25, ref: 'TTA 150 Titre III', text: 'Que signifie l\'acronyme PADE pour un compte-rendu d\'observation ?', options: ['Position, Attitude, Direction, Effectif', 'Patrouille, Armement, Distance, État', 'Protection, Appui, Défense, Évacuation', 'Point, Azimut, Dénivelé, Échelle'], correct: 0, explanation: 'PADE : Position de l\'ennemi, Attitude, Direction et Effectif/armement.' },
+            { id: 'q-25', moduleId: 'mod-topo', level: 20, ref: 'TTA 150 Titre II', text: 'Dans quel ordre lit-on toujours les coordonnées quadrillées UTM/MGRS sur une carte militaire ?', options: ['Ordonnée (Y) puis Abscisse (X)', 'Abscisse (X - gauche à droite) puis Ordonnée (Y - bas en haut), lecture en « L »', 'Du haut vers le bas uniquement', 'En diagonale'], correct: 1, explanation: 'La lecture se fait toujours en « L » : d\'abord l\'abscisse (Est/X), puis l\'ordonnée (Nord/Y).' },
+            { id: 'q-26', moduleId: 'mod-topo', level: 45, ref: 'Topographie Militaire', text: 'Quelle est la pente en pourcentage entre deux points distants de 500 m horizontalement avec un dénivelé de 40 m ?', options: ['4 %', '8 %', '12,5 %', '20 %'], correct: 1, explanation: 'Pente (%) = (Dénivelé / Distance) × 100 = (40 / 500) × 100 = 8 %.' },
+            { id: 'q-27', moduleId: 'mod-trans', level: 18, ref: 'TTA 150 Titre V', text: 'Que signifie le code « X » à la Ligne 6 (Sécurité de la zone de posé) d\'un message MEDEVAC 9-Line ?', options: ['Zone sécurisée sans ennemi', 'Ennemi présent sur la zone — escorte armée requise', 'Contamination chimique', 'Blessé civil'], correct: 1, explanation: 'Ligne 6 MEDEVAC : N = Pas d\'ennemi, P = Ennemi possible, E = Ennemi présent, X = Ennemi présent, escorte armée requise.' },
+            { id: 'q-28', moduleId: 'mod-sc1', level: 22, ref: 'TTA 150 Titre VIII - SC1', text: 'Pourquoi doit-on impérativement couvrir un blessé hémorragique avec une couverture de survie (« H » de MARCHE) même sous climat chaud au Sénégal ?', options: ['Pour le protéger des insectes', 'Parce que la perte de sang provoque une hypothermie qui empêche la coagulation sanguine (triade létale)', 'Pour le camoufler uniquement', 'Pour éviter les coups de soleil'], correct: 1, explanation: 'Un blessé qui saigne perd sa chaleur corporelle ; l\'hypothermie bloque les facteurs de coagulation et aggrave l\'hémorragie.' },
+            { id: 'q-29', moduleId: 'mod-mines', level: 28, ref: 'TTA 150 Titre VI', text: 'Quelles sont les 5 étapes de la procédure réflexe des « 5 C » face à un engin explosif improvisé (IED) suspect ?', options: ['Courir, Crier, Couper, Cacher, Continuer', 'Confirmer, Couvrir/Évacuer, Contrôler/Boucler, Communiquer, Consigner', 'Charger, Cibler, Canarder, Contourner, Camper', 'Compter, Creuser, Couvrir, Calmer, Conclure'], correct: 1, explanation: 'Les 5 C : Confirmer à distance, Couvrir/Évacuer en reculant dans ses traces, Contrôler/Boucler la zone, Communiquer (alerte EOD), Consigner.' },
+            { id: 'q-30', moduleId: 'mod-nrbc', level: 35, ref: 'TTA 150 Titre VII', text: 'À quelle famille d\'agents chimiques appartiennent le Sarin et le VX ?', options: ['Agents suffocants', 'Agents neurotoxiques', 'Agents vésicants', 'Agents lacrymogènes'], correct: 1, explanation: 'Le Sarin, le Soman, le Tabun et le VX sont des agents neurotoxiques agissant sur le système nerveux.' },
+            { id: 'q-31', moduleId: 'mod-drones', level: 40, ref: 'Doctrine Anti-Drone', text: 'Quel espacement minimal entre combattants est recommandé lors d\'une dispersion face à une menace drone UAV/FPV ?', options: ['1 à 2 mètres', '15 à 25 mètres', '100 mètres', 'Aucun espacement'], correct: 1, explanation: 'La dispersion à 15-25 mètres entre personnels empêche qu\'un seul drone FPV ou obus guidé ne neutralise tout le groupe.' },
+            { id: 'q-32', moduleId: 'mod-epms', level: 25, ref: 'TTA 150 Titre XI - EPMS', text: 'Quel signe clinique grave distingue le coup de chaleur d\'exercice d\'une simple fatigue ?', options: ['Une légère transpiration', 'Une confusion mentale/titubation accompagnée d\'une hyperthermie majeure (urgence vitale)', 'Une envie de dormir le soir', 'Une faim importante'], correct: 1, explanation: 'Les troubles neurologiques (confusion, titubation) associés à une forte chaleur corporelle signent le coup de chaleur, urgence vitale absolue.' },
+            { id: 'q-33', moduleId: 'mod-psy', level: 30, ref: 'Psychologie Opérationnelle', text: 'En quoi consiste la technique de respiration tactique utilisée pour réguler le stress aigu au combat ?', options: ['Respirer le plus vite possible pendant 1 minute', 'Inspirer 4 sec, bloquer 4 sec, expirer 4 sec, bloquer 4 sec (cohérence cardiaque)', 'Bloquer sa respiration pendant 2 minutes', 'Allonger le blessé'], correct: 1, explanation: 'La respiration carrée (4-4-4-4) ralentit le rythme cardiaque et restaure la lucidité décisionnelle sous stress.' }
+        ];
+
+        const MAP_SECTORS = {
+            DAKAR: { label: '28P CB', baseLat: 14.7167, baseLon: -17.4677, waterY: [360, 340, 260, 240] },
+            SAINTLOUIS: { label: '28P DB', baseLat: 16.0179, baseLon: -16.4896, waterY: [120, 180, 290, 380] },
+            KEDOUGOU: { label: '28P FA', baseLat: 12.5605, baseLon: -12.1747, waterY: [410, 350, 320, 280] },
+            ZIGUINCHOR: { label: '28P BB', baseLat: 12.5681, baseLon: -16.2719, waterY: [210, 225, 215, 230] }
+        };
+        let currentMapSector = 'DAKAR';
+<!-- ... existing code ... -->
+        function getMilitaryRankByLevel(level) {
+            if (level <= 50) return { title: 'Soldat de 2e Classe', insignia: '🪖' };
+            if (level <= 120) return { title: 'Soldat de 1re Classe', insignia: '🎖️' };
+            if (level <= 200) return { title: 'Caporal', insignia: '⚔️' };
+            if (level <= 300) return { title: 'Caporal-Chef', insignia: '⚔️' };
+            if (level <= 400) return { title: 'Sergent', insignia: '🛡️' };
+            if (level <= 500) return { title: 'Sergent-Chef', insignia: '🛡️' };
+            if (level <= 600) return { title: 'Adjudant', insignia: '🎗️' };
+            if (level <= 700) return { title: 'Adjudant-Chef', insignia: '🎗️' };
+            if (level <= 800) return { title: 'Sous-Lieutenant / Lieutenant', insignia: '⭐' };
+            if (level <= 900) return { title: 'Capitaine / Commandant', insignia: '⭐⭐' };
+            if (level <= 970) return { title: 'Lieutenant-Colonel / Colonel', insignia: '🦅' };
+            return { title: 'Officier Général', insignia: '🌟' };
+        }
+
+        document.getElementById('auth-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const prenom = document.getElementById('reg-prenom').value.trim();
+            const nom = document.getElementById('reg-nom').value.trim().toUpperCase();
+            const callsign = document.getElementById('reg-callsign').value.trim().toUpperCase();
+            const initialLevel = parseInt(document.getElementById('reg-initial-rank').value) || 1;
+            const unit = document.getElementById('reg-unit').value.trim();
+            const contact = document.getElementById('reg-contact').value.trim();
+
+            const newUser = {
+                id: 'mil-' + Date.now(),
+                prenom,
+                nom,
+                callsign,
+                unit,
+                contact,
+                xp: (initialLevel - 1) * 100,
+                level: initialLevel,
+                totalQuestions: 0,
+                correctAnswers: 0,
+                history: []
+            };
+
+            usersList.unshift(newUser);
+            activeUser = newUser;
+            saveUsers();
+            showToast(`Bienvenue au service, ${callsign} (${prenom} ${nom}) !`, 'success');
+            showAppShell();
+        });
+
+        document.getElementById('demo-login-btn').addEventListener('click', function() {
+            let demoUser = usersList.find(u => u.id === 'demo-etat-major');
+            if (!demoUser) {
+                demoUser = {
+                    id: 'demo-etat-major',
+                    prenom: 'Mamadou',
+                    nom: 'DIOP',
+                    callsign: 'JAMBAR-01',
+                    unit: 'État-Major Général / Cabinet MFA',
+                    contact: 'cabinet@forcesarmees.sn',
+                    xp: 82500,
+                    level: 825,
+                    totalQuestions: 120,
+                    correctAnswers: 114,
+                    history: [
+                        { date: 'Aujourd\'hui', module: 'Examen Général Interarmes', score: '19/20', level: 825 },
+                        { date: 'Hier', module: 'TTA 150 Intégral & Armement', score: '10/10', level: 810 }
+                    ]
+                };
+                usersList.unshift(demoUser);
+            }
+            activeUser = demoUser;
+            saveUsers();
+            showToast('Mode Démonstration Officielle activé (Présentation Ministre).', 'success');
+            showAppShell();
+        });
+<!-- ... existing code ... -->
+            if (activeUser) {
+                const acc = activeUser.totalQuestions > 0
+                    ? Math.round((activeUser.correctAnswers / activeUser.totalQuestions) * 100)
+                    : 0;
+                document.getElementById('stat-accuracy').textContent = `${acc}%`;
+                document.getElementById('stat-tests-taken').textContent = `${activeUser.history.length} évaluations passées`;
+
+                // Tableau d'honneur des militaires enregistrés
+                const lbList = document.getElementById('dash-leaderboard-list');
+                if (lbList) {
+                    const sortedUsers = [...usersList].sort((a, b) => b.level - a.level || b.xp - a.xp);
+                    lbList.innerHTML = sortedUsers.map((u, i) => `
+                        <div class="p-2.5 rounded-lg ${u.id === activeUser.id ? 'bg-tactical-khaki/50 border-tactical-gold' : 'bg-tactical-black border-tactical-border'} border flex items-center justify-between text-xs font-mono">
+                            <div class="truncate pr-2">
+                                <span class="text-tactical-gold font-bold">#${i + 1}</span>
+                                <span class="text-white font-bold ml-1">${u.callsign}</span>
+                                <span class="text-gray-400 text-[10px] block truncate">${u.prenom} ${u.nom} • ${u.unit}</span>
+                            </div>
+                            <span class="px-2 py-0.5 rounded bg-tactical-panel text-tactical-gold font-bold shrink-0">Niv.${u.level}</span>
+                        </div>
+                    `).join('');
+                }
+
+                const histList = document.getElementById('dash-history-list');
+<!-- ... existing code ... -->
+        function switchTab(tabName) {
+            const tabs = ['dashboard', 'tta150', 'courses', 'quiz', 'maps', 'admin'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`view-${t}`);
+                if (el) el.classList.add('hidden');
+            });
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.dataset.tab === tabName) {
+                    btn.classList.add('bg-tactical-khaki', 'text-white', 'border', 'border-tactical-gold/50');
+                    btn.classList.remove('text-gray-400', 'hover:bg-tactical-card');
+                } else {
+                    btn.classList.remove('bg-tactical-khaki', 'text-white', 'border', 'border-tactical-gold/50');
+                    btn.classList.add('text-gray-400', 'hover:bg-tactical-card');
+                }
+            });
+
+            const activeEl = document.getElementById(`view-${tabName}`);
+            if (activeEl) activeEl.classList.remove('hidden');
+
+            if (tabName === 'tta150') renderTTA150View();
+            if (tabName === 'courses') renderCourses();
+            if (tabName === 'maps') {
+                setTimeout(() => {
+                    resizeTopoCanvas();
+                    renderWaypointsList();
+                }, 50);
+            }
+        }
+
+        function renderTTA150View() {
+            const ttaMod = appDB.modules.find(m => m.id === 'mod-tta150');
+            if (!ttaMod) return;
+            const query = (document.getElementById('tta150-search')?.value || '').toLowerCase().trim();
+
+            const tocContainer = document.getElementById('tta150-toc');
+            tocContainer.innerHTML = ttaMod.lessons.map((l, idx) => `
+                <button onclick="document.getElementById('tta-card-${l.id}')?.scrollIntoView({behavior:'smooth'})" class="px-3 py-1.5 rounded-lg bg-tactical-panel hover:bg-tactical-khaki border border-tactical-border text-xs font-mono text-tactical-sand transition">
+                    Titre ${idx + 1}
+                </button>
+            `).join('');
+
+            const filtered = ttaMod.lessons.filter(l =>
+                !query ||
+                l.title.toLowerCase().includes(query) ||
+                l.ref.toLowerCase().includes(query) ||
+                l.content.toLowerCase().includes(query)
+            );
+
+            const listContainer = document.getElementById('tta150-content-list');
+            if (filtered.length === 0) {
+                listContainer.innerHTML = `<div class="p-6 text-center bg-tactical-panel rounded-xl border border-tactical-border text-sm text-gray-400">Aucun article du TTA 150 ne correspond à « ${query} ».</div>`;
+                return;
+            }
+
+            listContainer.innerHTML = filtered.map(l => `
+                <article id="tta-card-${l.id}" class="bg-tactical-panel border border-tactical-border rounded-2xl p-5 sm:p-6 shadow-lg">
+                    <div class="pb-3 mb-3 border-b border-tactical-border">
+                        <span class="text-xs font-mono text-tactical-gold font-bold uppercase">${l.ref}</span>
+                        <h3 class="text-lg font-extrabold text-white mt-0.5">${l.title}</h3>
+                    </div>
+                    <div class="text-sm text-gray-200 whitespace-pre-line leading-relaxed">${l.content}</div>
+                </article>
+            `).join('');
+        }
+<!-- ... existing code ... -->
+                    const weaponsData = [
+                        { name: 'Mitrailleuse Browning M2 HB .50', cal: '12,7 x 99 mm OTAN', portee: '1 500 à 1 800 m (cadence 450-600 cps/min)' },
+                        { name: 'Lance-roquettes RPG-7', cal: '40 mm (tube) / 85 mm (PG-7V)', portee: '300 m (cible mobile) / 500 m (fixe)' },
+                        { name: 'Mitrailleuse M60', cal: '7,62 x 51 mm OTAN', portee: '800 m sur bipied / 1 100 m sur trépied' },
+                        { name: 'Mitrailleuse lourde chinoise Type 54 / W85', cal: '12,7 x 108 mm', portee: '1 500 à 1 600 m au sol / 1 000 m air' },
+                        { name: 'Mitrailleuse antiaérienne 14,7 mm (KPV / ZPU)', cal: '14,5 x 114 mm', portee: '2 000 m au sol / 1 400 m antiaérien' },
+                        { name: 'Fusil d\'Assaut FN FAL', cal: '7,62 x 51 mm OTAN', portee: '600 m' },
+                        { name: 'Carabine M4 / Fusil M16A2-A4', cal: '5,56 x 45 mm OTAN', portee: '300 à 550 m (cadence 700-950 cps/min)' },
+                        { name: 'Fusil Lance-Grenades FLG', cal: '40 x 46 mm basse vitesse', portee: '150 m cible ponctuelle / 350 m zone' }
+                    ];
+<!-- ... existing code ... -->
+            // Cours d'eau / Fleuve vectoriel (Bleu tactique adapté au secteur)
+            const sector = MAP_SECTORS[currentMapSector] || MAP_SECTORS.DAKAR;
+            ctx.beginPath();
+            ctx.moveTo(0, sector.waterY[0]);
+            ctx.bezierCurveTo(220, sector.waterY[1], 340, sector.waterY[2], 750, sector.waterY[3]);
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+            ctx.lineWidth = 6;
+            ctx.stroke();
+
+            // Zone boisée / Savane arborée (Relief ombré)
+            ctx.fillStyle = 'rgba(45, 75, 35, 0.35)';
+            ctx.beginPath();
+            ctx.arc(150, 320, 65, 0, Math.PI * 2);
+            ctx.arc(580, 120, 75, 0, Math.PI * 2);
+            ctx.fill();
+<!-- ... existing code ... -->
+        function renderWaypointsList() {
+            const list = document.getElementById('waypoints-list');
+            document.getElementById('wp-count').textContent = appDB.waypoints.length;
+
+            const selA = document.getElementById('wp-calc-a');
+            const selB = document.getElementById('wp-calc-b');
+            if (selA && selB) {
+                const opts = appDB.waypoints.map(w => `<option value="${w.id}">[${w.type}] ${w.name}</option>`).join('');
+                selA.innerHTML = opts;
+                selB.innerHTML = opts;
+                if (appDB.waypoints.length > 1) selB.selectedIndex = 1;
+                calcBetweenWaypoints();
+            }
+
+            if (appDB.waypoints.length === 0) {
+                list.innerHTML = '<p class="text-gray-500 italic">Aucun point de repère enregistré.</p>';
+                return;
+            }
+
+            list.innerHTML = appDB.waypoints.map(wp => `
+                <div class="p-2 rounded-lg bg-tactical-black border border-tactical-border flex items-center justify-between">
+                    <div>
+                        <span class="font-mono font-bold text-tactical-gold">[${wp.type}]</span>
+                        <span class="text-white ml-1">${wp.name}</span>
+                        <div class="text-[10px] font-mono text-gray-500">Grille X:${wp.x} Y:${wp.y}</div>
+                    </div>
+                    <button onclick="deleteWaypoint('${wp.id}')" class="text-red-400 hover:text-red-300 px-2 py-1 font-mono">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function calcBetweenWaypoints() {
+            const selA = document.getElementById('wp-calc-a');
+            const selB = document.getElementById('wp-calc-b');
+            const out = document.getElementById('wp-pair-result');
+            if (!selA || !selB || !out) return;
+
+            const wpA = appDB.waypoints.find(w => w.id === selA.value);
+            const wpB = appDB.waypoints.find(w => w.id === selB.value);
+            if (!wpA || !wpB || wpA.id === wpB.id) {
+                out.textContent = 'Sélectionnez deux repères distincts.';
+                return;
+            }
+            const dx = wpB.x - wpA.x;
+            const dy = wpB.y - wpA.y;
+            const distM = Math.round(Math.hypot(dx, dy) * 12.5);
+            let deg = Math.round((Math.atan2(dx, -dy) * 180) / Math.PI);
+            if (deg < 0) deg += 360;
+            const mils = Math.round((deg * 6400) / 360);
+            out.textContent = `Distance : ${distM} m (${(distM/1000).toFixed(2)} km) • Azimut : ${deg}° / ${mils} ₥`;
+        }
+
+        function changeMapSector(sectorKey) {
+            currentMapSector = sectorKey;
+            const sec = MAP_SECTORS[sectorKey] || MAP_SECTORS.DAKAR;
+            mapState.userPos.lat = sec.baseLat;
+            mapState.userPos.lon = sec.baseLon;
+            document.getElementById('gps-lat').textContent = `${sec.baseLat.toFixed(4)}° N`;
+            document.getElementById('gps-lon').textContent = `${Math.abs(sec.baseLon).toFixed(4)}° W`;
+            document.getElementById('gps-mgrs').textContent = `${sec.label} 3420 2710`;
+            drawTopoMap();
+            showToast(`Carte chargée : Secteur ${sectorKey}`, 'info');
+        }
+<!-- ... existing code ... -->
+        function calcMapDistance() {
+            const cm = parseFloat(document.getElementById('calc-cm').value) || 0;
+            const scale = parseInt(document.getElementById('calc-scale').value) || 50000;
+            const elev = parseFloat(document.getElementById('calc-elev').value) || 0;
+            const meters = Math.round((cm / 100) * scale);
+            const km = (meters / 1000).toFixed(2);
+            const slopePct = meters > 0 ? ((elev / meters) * 100).toFixed(1) : '0.0';
+            // Formule de Naismith : 1h par 4 km + 1h par 300 m de dénivelé positif
+            const naismithMins = Math.round(((meters / 4000) + (Math.max(0, elev) / 300)) * 60);
+            document.getElementById('calc-dist-result').innerHTML =
+                `Distance : ${meters.toLocaleString('fr-FR')} m (${km} km) • Pente : ${slopePct}%<br>Marche Naismith (4 km/h + 300m/h) : ~${naismithMins} min`;
+        }
+
+        /* ============================================================================
+           9. MODE ADMINISTRATEUR / PROPRIÉTAIRE (AJOUT, ÉDITION, SUPPRESSION, EXPORT)
+           ============================================================================ */
+        function openAdminModal() {
+            if (isAdminUnlocked) {
+                switchTab('admin');
+                renderAdminLessonsList();
+                renderAdminQuestionsList();
+                return;
+            }
+            document.getElementById('admin-pin-input').value = '';
+            document.getElementById('admin-pin-modal').classList.remove('hidden');
+            document.getElementById('admin-pin-input').focus();
+        }
+
+        function closeAdminPinModal() {
+            document.getElementById('admin-pin-modal').classList.add('hidden');
+        }
+
+        function verifyAdminPin() {
+            const entered = document.getElementById('admin-pin-input').value.trim();
+            const storedPin = localStorage.getItem(STORAGE_KEYS.PIN) || '2026';
+
+            if (entered === storedPin) {
+                isAdminUnlocked = true;
+                closeAdminPinModal();
+                document.getElementById('admin-active-dot').classList.remove('hidden');
+                showToast('Accès Propriétaire déverrouillé.', 'success');
+                switchTab('admin');
+                renderAdminLessonsList();
+                renderAdminQuestionsList();
+            } else {
+                showToast('Code PIN incorrect. Accès refusé.', 'error');
+            }
+        }
+
+        function switchAdminSubtab(subtab) {
+            const panels = ['add-lesson', 'new-module', 'manage-lessons', 'add-question', 'manage-questions', 'security'];
+            panels.forEach(p => {
+                const panelEl = document.getElementById(`adm-panel-${p}`);
+                if (panelEl) panelEl.classList.add('hidden');
+                const btn = document.getElementById(`adm-btn-${p}`);
+                if (btn) {
+                    btn.classList.remove('bg-tactical-gold', 'text-tactical-black');
+                    btn.classList.add('bg-tactical-card', 'text-gray-300');
+                }
+            });
+
+            const activePanel = document.getElementById(`adm-panel-${subtab}`);
+            if (activePanel) activePanel.classList.remove('hidden');
+            const activeBtn = document.getElementById(`adm-btn-${subtab}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-tactical-card', 'text-gray-300');
+                activeBtn.classList.add('bg-tactical-gold', 'text-tactical-black');
+            }
+
+            if (subtab === 'manage-lessons') renderAdminLessonsList();
+            if (subtab === 'manage-questions') renderAdminQuestionsList();
+        }
+
+        document.getElementById('admin-new-module-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const code = document.getElementById('adm-mod-code').value.trim().toUpperCase();
+            const icon = document.getElementById('adm-mod-icon').value.trim() || '🎖️';
+            const title = document.getElementById('adm-mod-title').value.trim();
+            const subtitle = document.getElementById('adm-mod-subtitle').value.trim();
+
+            appDB.modules.push({
+                id: 'mod-custom-' + Date.now(),
+                code,
+                icon,
+                title,
+                subtitle,
+                lessons: []
+            });
+            saveDB();
+            populateModuleSelects();
+            this.reset();
+            showToast(`Nouveau module « ${code} : ${title} » créé avec succès !`, 'success');
+        });
+
+        function autoGenerateQuizFromLessonText() {
+            const moduleId = document.getElementById('adm-lesson-module').value;
+            const ref = document.getElementById('adm-lesson-ref').value.trim() || 'TTA 150 / Document Importé';
+            const title = document.getElementById('adm-lesson-title').value.trim() || 'Cours Réglementaire';
+            const content = document.getElementById('adm-lesson-content').value.trim();
+
+            if (content.length < 40) {
+                showToast('Veuillez saisir ou importer un texte suffisamment détaillé avant de générer des QCM.', 'error');
+                return;
+            }
+
+            const lines = content.split('\n').map(l => l.trim()).filter(l => l.length > 25 && l.includes(':'));
+            if (lines.length === 0) {
+                showToast('Astuce : formatez vos points clés avec « Terme : Définition » pour la génération automatique.', 'info');
+                return;
+            }
+
+            let createdCount = 0;
+            lines.slice(0, 5).forEach((line, idx) => {
+                const parts = line.split(':');
+                const subject = parts[0].replace(/^[-•*\d.)\s]+/, '').trim();
+                const definition = parts.slice(1).join(':').trim();
+                if (subject.length > 3 && definition.length > 10) {
+                    appDB.questions.unshift({
+                        id: 'q-auto-' + Date.now() + '-' + idx,
+                        moduleId,
+                        level: 20 + idx * 15,
+                        ref,
+                        text: `[${title}] Selon le règlement (${ref}), que désigne ou prescrit « ${subject} » ?`,
+                        options: [
+                            definition,
+                            'Une procédure réservée uniquement à l\'état-major en temps de paix',
+                            'Une disposition abrogée du règlement de garnison',
+                            'Un dispositif logistique non applicable en opération'
+                        ],
+                        correct: 0,
+                        explanation: `${subject} : ${definition} (Réf : ${ref}).`
+                    });
+                    createdCount++;
+                }
+            });
+
+            if (createdCount > 0) {
+                saveDB();
+                showToast(`${createdCount} question(s) QCM générée(s) automatiquement depuis votre texte !`, 'success');
+            } else {
+                showToast('Aucune définition structurée détectée dans le texte.', 'info');
+            }
+        }
+<!-- ... existing code ... -->
+        function renderAdminLessonsList() {
+            const filterMod = document.getElementById('adm-filter-lessons-mod').value;
+            const container = document.getElementById('adm-lessons-list');
+            let items = [];
+
+            appDB.modules.forEach(m => {
+                if (filterMod === 'ALL' || filterMod === m.id) {
+                    m.lessons.forEach(l => items.push({ mod: m, lesson: l }));
+                }
+            });
+
+            container.innerHTML = items.map(({ mod, lesson }) => `
+                <div class="p-3 rounded-xl bg-tactical-black border border-tactical-border flex items-center justify-between gap-3">
+                    <div>
+                        <span class="text-[10px] font-mono text-tactical-gold">${mod.code} • ${lesson.ref}</span>
+                        <div class="text-sm font-bold text-white">${lesson.title}</div>
+                    </div>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <button onclick="openEditLesson('${mod.id}', '${lesson.id}')" class="px-3 py-1.5 rounded-lg bg-tactical-card hover:bg-tactical-border text-tactical-sand text-xs font-bold">
+                            Éditer
+                        </button>
+                        <button onclick="deleteLesson('${mod.id}', '${lesson.id}')" class="px-3 py-1.5 rounded-lg bg-tactical-alert hover:bg-tactical-alertHover text-white text-xs font-bold">
+                            Supprimer
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openEditLesson(moduleId, lessonId) {
+            const mod = appDB.modules.find(m => m.id === moduleId);
+            if (!mod) return;
+            const lesson = mod.lessons.find(l => l.id === lessonId);
+            if (!lesson) return;
+
+            document.getElementById('edit-lesson-mod-id').value = moduleId;
+            document.getElementById('edit-lesson-id').value = lessonId;
+            document.getElementById('edit-lesson-ref').value = lesson.ref;
+            document.getElementById('edit-lesson-title').value = lesson.title;
+            document.getElementById('edit-lesson-content').value = lesson.content;
+            document.getElementById('adm-edit-lesson-box').classList.remove('hidden');
+            document.getElementById('adm-edit-lesson-box').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function saveEditedLesson() {
+            const moduleId = document.getElementById('edit-lesson-mod-id').value;
+            const lessonId = document.getElementById('edit-lesson-id').value;
+            const mod = appDB.modules.find(m => m.id === moduleId);
+            if (!mod) return;
+            const lesson = mod.lessons.find(l => l.id === lessonId);
+            if (!lesson) return;
+
+            lesson.ref = document.getElementById('edit-lesson-ref').value.trim();
+            lesson.title = document.getElementById('edit-lesson-title').value.trim();
+            lesson.content = document.getElementById('edit-lesson-content').value.trim();
+
+            saveDB();
+            renderAdminLessonsList();
+            document.getElementById('adm-edit-lesson-box').classList.add('hidden');
+            showToast('Fiche mise à jour avec succès !', 'success');
+        }
+<!-- ... existing code ... -->
+```
